@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
-import '../app/globals.css'; // TESTTTT
-
+import '../app/globals.css';
 export default function Login() {
   const [formData, setFormData] = useState({
     username: '',
