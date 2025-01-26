@@ -9,10 +9,19 @@ export default {
   theme: {
     extend: {
       boxShadow: {
-        ycustom: "-5px 5px 0 0 rgba(136, 112, 64)",
+        ycustom: "-0.3rem 0.3rem 0 0 rgba(136, 112, 64)",
       },
       width: {
         chart: "55%",
+        planet: "21%",
+      },
+      translate: {
+        xbtn: "-0.3rem",
+        ybtn: "0.3rem",
+      },
+      colors: {
+        lightyellow: "#FCC352",
+        slightlydarkeryellow: "#E8B349",
       },
     },
   },
