@@ -1,3 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+
+img {
+    user-select: none;
+    pointer-events: none;
+  }
+
+:root {
+    --title-left: 35%;
+    --title-color: #427996;
+    --stitle-color: #887040;
+    --ybtn-color: #FCC352;
+  }

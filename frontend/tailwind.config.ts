@@ -8,9 +8,11 @@ export default {
   ],
   theme: {
     extend: {
-      colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+      boxShadow: {
+        ycustom: "-5px 5px 0 0 rgba(136, 112, 64)",
+      },
+      width: {
+        chart: "55%",
       },
     },
   },
