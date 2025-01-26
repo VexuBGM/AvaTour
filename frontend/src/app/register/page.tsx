@@ -1,6 +1,8 @@
+'use client';
+
 import { useState } from 'react';
 import axios from 'axios';
-import '../app/globals.css';
+import '../globals.css';
 
 export default function Register() {
   const [formData, setFormData] = useState({
@@ -24,11 +26,8 @@ export default function Register() {
       const response = await axios.post('http://localhost:8000/api/accounts/register/', formData);
       console.log(response.data);
       setSuccessMessage('Registration successful!');
-      setErrorMessage('');
     } catch (error) {
-      console.error(error);
-      setErrorMessage('Registration failed. Please try again.');
-      setSuccessMessage('');
+      setErrorMessage('Registration failed.');
     }
   };
 
@@ -73,7 +72,7 @@ export default function Register() {
           </div>
           <button
             type="submit"
-            className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            className="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             Register
           </button>
