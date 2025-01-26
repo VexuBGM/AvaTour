@@ -6,6 +6,8 @@ from .serializers import LoginSerializer, UserSerializer
 from django.contrib.auth import logout
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
+from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
 
 class UserCreateView(generics.CreateAPIView):
     queryset = User.objects.all()
@@ -24,7 +26,6 @@ class SessionLoginView(generics.GenericAPIView):
 
         user = authenticate(request, username=username, password=password)
         if user is not None:
-            # This sets the session cookie for the authenticated user
             login(request, user)
             return Response({"detail": "Session-based login successful."}, status=status.HTTP_200_OK)
         else:
@@ -35,3 +36,9 @@ class SessionLogoutView(generics.GenericAPIView):
     def post(self, request, *args, **kwargs):
         logout(request)
         return Response({"detail": "Logged out."}, status=status.HTTP_200_OK)
+
+class CheckAuthView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        return Response({"detail": "Authenticated", "username": request.user.username}, status=status.HTTP_200_OK)
