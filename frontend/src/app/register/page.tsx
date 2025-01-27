@@ -2,9 +2,11 @@
 
 import { useState } from 'react';
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
 import '../globals.css';
 
 export default function Register() {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -24,8 +26,16 @@ export default function Register() {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:8000/api/accounts/register/', formData);
-      console.log(response.data);
       setSuccessMessage('Registration successful!');
+      // Perform login immediately after registration
+      const loginResponse = await axios.post(
+        'http://localhost:8000/api/accounts/session_login/',
+        { username: formData.username, password: formData.password },
+        { withCredentials: true }
+      );
+      console.log(loginResponse.data);
+      // Optionally redirect somewhere
+      router.push('/dashboard');
     } catch (error) {
       setErrorMessage('Registration failed.');
     }

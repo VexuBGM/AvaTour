@@ -3,8 +3,11 @@
 import axios from 'axios';
 import React from 'react';
 import '../globals.css';
+import { useRouter } from 'next/navigation';
 
 export default function Logout() {
+  const router = useRouter();
+  
   const handleLogout = async () => {
     try {
       const csrfToken = getCookie('csrftoken'); // Function to get CSRF token from cookies
@@ -19,6 +22,7 @@ export default function Logout() {
         }
       );
       alert('Logout successful!');
+      router.push('/login');
     } catch (error) {
       console.error(error);
       alert('Logout failed.');

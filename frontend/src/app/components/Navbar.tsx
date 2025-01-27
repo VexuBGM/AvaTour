@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 
 interface NavbarProps {
   username: string;
@@ -11,9 +12,13 @@ const Navbar: React.FC<NavbarProps> = ({ username }) => {
         <span>Tab 1</span>
         <span>Tab 2</span>
       </div>
-      <div className="flex items-center">
-        <span>{username}</span>
+      <Link href="/logout">
+      <div className="flex items-center bg-red-500 text-white px-4 py-2 rounded-md cursor-pointer hover:bg-red-600 transition-colors">
+        <span>Logout /</span>
+        <span className="px-1">{username}</span>
+        
       </div>
+      </Link>
     </nav>
   );
 };

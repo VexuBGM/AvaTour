@@ -1,4 +1,5 @@
- import '../app/globals.css';
+import '../app/globals.css';
+import Link from 'next/link';
 
 export default function Home() {
   return (
@@ -18,12 +19,16 @@ export default function Home() {
       </div>
       <div className="z-10 h-1/3 w-full top-64 absolute">
         <div className="left-56 bottom-0 h-36 w-fit absolute flex flex-col justify-between">
-          <div className="bg-lightyellow hover:bg-slightlydarkeryellow hover:shadow-none hover:translate-x-xbtn hover:translate-y-ybtn shadow-ycustom w-full rounded-xl cursor-pointer">
-            <h1 className="text-center font-semibold text-4xl py-2 select-none" style={{ color: 'var(--stitle-color)'}}>Вход</h1>
-          </div>
-          <div className="bg-lightyellow hover:bg-slightlydarkeryellow hover:shadow-none hover:translate-x-xbtn hover:translate-y-ybtn shadow-ycustom w-full rounded-xl cursor-pointer">
-            <h1 className="text-center font-semibold text-4xl px-5 py-2 select-none" style={{ color: 'var(--stitle-color)'}}>Регистрация</h1>
-          </div>
+          <Link href="/login">
+            <div className="bg-lightyellow hover:bg-slightlydarkeryellow hover:shadow-none hover:translate-x-xbtn hover:translate-y-ybtn shadow-ycustom w-full rounded-xl cursor-pointer">
+              <h1 className="text-center font-semibold text-4xl py-2 select-none" style={{ color: 'var(--stitle-color)' }}>Вход</h1>
+            </div>
+          </Link>
+          <Link href="/register">
+            <div className="bg-lightyellow hover:bg-slightlydarkeryellow hover:shadow-none hover:translate-x-xbtn hover:translate-y-ybtn shadow-ycustom w-full rounded-xl cursor-pointer">
+              <h1 className="text-center font-semibold text-4xl px-5 py-2 select-none" style={{ color: 'var(--stitle-color)'}}>Регистрация</h1>
+            </div>
+          </Link>
         </div>
       </div>
 

@@ -2,11 +2,13 @@
 
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+axios.defaults.withCredentials = true;
 import ProtectedRoute from '../components/ProtectedRoute';
 import Navbar from '../components/Navbar';
 
 const ProtectedPage = () => {
   const [username, setUsername] = useState('');
+  const [error, setError] = useState('');
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -16,12 +18,20 @@ const ProtectedPage = () => {
         });
         setUsername(response.data.username);
       } catch (error) {
-        console.error('Error fetching user data:', error);
+        if (axios.isAxiosError(error) && error.response && error.response.status === 403) {
+          setError('Access denied. Please log in.');
+        } else {
+          console.error('Error fetching user data:', error);
+        }
       }
     };
 
     fetchUser();
   }, []);
+
+  if (error) {
+    return <div>{error}</div>;
+  }
 
   return (
     <ProtectedRoute>

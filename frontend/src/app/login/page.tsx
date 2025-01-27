@@ -2,11 +2,13 @@
 
 import axios from 'axios';
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import '../globals.css';
 
 export default function Login() {
   const [formData, setFormData] = useState({ username: '', password: '' });
   const [message, setMessage] = useState('');
+  const router = useRouter();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -23,6 +25,9 @@ export default function Login() {
         }
       );
       setMessage(response.data.detail);
+      if (response.status === 200) {
+        router.push('/dashboard');
+      }
     } catch (error: any) {
       setMessage(error.response?.data?.detail || 'An error occurred.');
     }
