@@ -8,6 +8,8 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
+from django.http import JsonResponse
+from django.middleware.csrf import get_token
 
 class UserCreateView(generics.CreateAPIView):
     queryset = User.objects.all()
@@ -42,3 +44,14 @@ class CheckAuthView(APIView):
 
     def get(self, request):
         return Response({"detail": "Authenticated", "username": request.user.username}, status=status.HTTP_200_OK)
+
+class ProfileDeleteView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    @method_decorator(csrf_exempt)
+    def delete(self, request):
+        request.user.delete()
+        return Response({"detail": "User deleted."}, status=status.HTTP_200_OK)
+
+def csrf_token_view(request):
+    return JsonResponse({'csrfToken': get_token(request)})

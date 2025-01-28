@@ -52,7 +52,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware', 
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -154,3 +154,4 @@ REST_FRAMEWORK = {
 
 SESSION_COOKIE_SAMESITE = None
 SESSION_COOKIE_SECURE = False
+SESSION_COOKIE_AGE = 86400 # 1 day
