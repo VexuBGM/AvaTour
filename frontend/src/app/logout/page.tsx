@@ -5,6 +5,7 @@ import React from 'react';
 import '../globals.css';
 import { useRouter } from 'next/navigation';
 import ProtectedRoute from '../components/ProtectedRoute';
+import Navbar from '../components/Navbar';
 
 export default function Logout() {
   const router = useRouter();
@@ -48,6 +49,7 @@ export default function Logout() {
 
   return (
     <ProtectedRoute>
+      <Navbar />
       <div className="min-h-screen flex items-center justify-center bg-gray-100">
         <div className="max-w-md w-full bg-white p-8 rounded-lg shadow-md text-center">
           <h1 className="text-2xl font-bold mb-6">Logout</h1>

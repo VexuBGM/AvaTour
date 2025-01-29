@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import ProtectedRoute from '../components/ProtectedRoute';
 import { useRouter } from "next/navigation";
+import Navbar from "../components/Navbar";
 
 export default function DeleteProfilePage() {
   const [csrfToken, setCsrfToken] = useState("");
@@ -40,15 +41,16 @@ export default function DeleteProfilePage() {
 
   return (
     <ProtectedRoute>
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
-      <h1 className="text-3xl font-bold mb-6 text-gray-800">Delete Profile</h1>
-      <button
-        className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
-        onClick={handleDelete}
-      >
-        Delete
-      </button>
-    </div>
+      <Navbar />
+      <div className="flex flex-col items-center justify-center h-[calc(100vh-64px)] bg-gray-100">
+        <h1 className="text-3xl font-bold mb-6 text-gray-800">Delete Profile</h1>
+        <button
+          className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+          onClick={handleDelete}
+        >
+          Delete
+        </button>
+      </div>
     </ProtectedRoute>
   );
 }
