@@ -14,12 +14,17 @@ export default function Register() {
   });
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
+  };
+
+  const handleTogglePassword = () => {
+    setShowPassword(!showPassword);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -34,7 +39,6 @@ export default function Register() {
         { withCredentials: true }
       );
       console.log(loginResponse.data);
-      // Optionally redirect somewhere
       router.push('/dashboard');
     } catch (error) {
       setErrorMessage('Registration failed.');
@@ -72,13 +76,24 @@ export default function Register() {
           <div>
             <label className="block text-gray-700 font-medium">Password</label>
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
               name="password"
               value={formData.password}
               onChange={handleChange}
               placeholder="Enter your password"
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm placeholder-gray-900 text-gray-900"
             />
+            <div className="mt-2">
+              <label className="inline-flex items-center text-gray-700">
+                <input
+                  type="checkbox"
+                  checked={showPassword}
+                  onChange={handleTogglePassword}
+                  className="form-checkbox"
+                />
+                <span className="ml-2 select-none">Show Password</span>
+              </label>
+            </div>
           </div>
           <button
             type="submit"
@@ -86,6 +101,10 @@ export default function Register() {
           >
             Register
           </button>
+          <div className="mt-4 text-center">
+          <span className="text-gray-700">Have an account? </span>
+          <a href="/login" className="text-blue-500 hover:underline">Log in</a>
+        </div>
         </form>
       </div>
     </div>
