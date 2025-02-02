@@ -10,6 +10,7 @@ export default {
     extend: {
       boxShadow: {
         ycustom: "-0.3rem 0.3rem 0 0 rgba(136, 112, 64)",
+        tcustom: "0 0 1rem 0.5rem rgba(50, 98, 123, 0.4)",
       },
       width: {
         chart: "55%",
@@ -22,6 +23,14 @@ export default {
       colors: {
         lightyellow: "#FCC352",
         slightlydarkeryellow: "#E8B349",
+        dyellow: "#887040",
+        ddblue: "#32627b",
+        dblue: "#427996",
+        lblue: "#7ab7d8",
+        descblue: "#578fad",
+
+        gradientdblue: "#73b2d4",
+        gradientlblue: "#caecff",
       },
     },
   },
