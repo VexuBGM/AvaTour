@@ -64,9 +64,8 @@ export default function Home() {
       <div className="z-20 top-5 w-full absolute">
         <div className="w-fit relative" style={{ left: 'var(--title-left)' }}>
           <h1 className="text-dblue text-center text-9xl font-extrabold">AvaTour</h1>
-          <h1 className="text-dyellow text-center text-2xl font-semibold italic">
-            Вашият фокус е туризмът,<br />
-            нашият – отчетността!
+          <h1 className="text-dyellow text-center text-3xl font-medium mt-2">
+            Вашият фокус е туризмът, нашият – отчетността!
           </h1>
         </div>
       </div>
