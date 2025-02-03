@@ -11,6 +11,7 @@ export default {
       boxShadow: {
         ycustom: "-0.3rem 0.3rem 0 0 rgba(136, 112, 64)",
         tcustom: "0 0 1rem 0.5rem rgba(50, 98, 123, 0.4)",
+        registerLoginCustom: "0 0 2rem 0.5rem rgba(50, 98, 123, 0.3)",
       },
       width: {
         chart: "55%",
@@ -27,6 +28,7 @@ export default {
         ddblue: "#32627b",
         dblue: "#427996",
         lblue: "#7ab7d8",
+        llblue: "#e5f0fe",
         descblue: "#578fad",
 
         gradientdblue: "#73b2d4",

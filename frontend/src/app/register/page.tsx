@@ -4,6 +4,8 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import '../globals.css';
+import OpenedEye from '../components/OpenedEye';
+import ClosedEye from '../components/ClosedEye';
 
 export default function Register() {
   const router = useRouter();
@@ -46,65 +48,70 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="max-w-md w-full bg-white p-8 rounded-lg shadow-md">
+    <div className="h-screen flex items-center justify-center">
+      <div className="w-2/5 bg-lblue p-8 rounded-xl shadow-registerLoginCustom">
         {successMessage && <div className="mb-4 text-green-500">{successMessage}</div>}
         {errorMessage && <div className="mb-4 text-red-500">{errorMessage}</div>}
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-gray-700 font-medium">Username</label>
+            <label className="block text-ddblue font-bold text-2xl mb-1"><h1 className="cursor-text w-fit">Потребителско име</h1></label>
             <input
               type="text"
               name="username"
+              autoComplete="off"
               value={formData.username}
               onChange={handleChange}
-              placeholder="Enter your username"
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm placeholder-gray-900 text-gray-900"
+              placeholder="username here"
+              className="bg-llblue rounded-t-md rounded-b-md block w-full px-2 pt-2 border-b-4 focus:border-dblue focus:rounded-b-sm border-transparent focus:outline-none shadow-sm text-base text-dblue placeholder:text-dblue placeholder:text-base"
             />
           </div>
+
           <div>
-            <label className="block text-gray-700 font-medium">Email</label>
+            <label className="block text-ddblue font-bold text-2xl mb-1"><h1 className="cursor-text w-fit">Email</h1></label>
             <input
               type="email"
               name="email"
               value={formData.email}
               onChange={handleChange}
-              placeholder="Enter your email"
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm placeholder-gray-900 text-gray-900"
+              autoComplete="off"
+              placeholder="email here"
+              className="bg-llblue rounded-t-md rounded-b-md block w-full px-2 pt-2 border-b-4 focus:border-dblue focus:rounded-b-sm border-transparent focus:outline-none shadow-sm text-base text-dblue placeholder:text-dblue placeholder:text-base"
             />
           </div>
+
           <div>
-            <label className="block text-gray-700 font-medium">Password</label>
-            <input
-              type={showPassword ? "text" : "password"}
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              placeholder="Enter your password"
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm placeholder-gray-900 text-gray-900"
-            />
-            <div className="mt-2">
-              <label className="inline-flex items-center text-gray-700">
-                <input
-                  type="checkbox"
-                  checked={showPassword}
-                  onChange={handleTogglePassword}
-                  className="form-checkbox"
-                />
-                <span className="ml-2 select-none">Show Password</span>
-              </label>
+            <label className="block text-ddblue font-bold text-2xl mb-1"><h1 className="cursor-text w-fit">Парола</h1></label>
+            <div className="relative flex items-center">
+              <input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                placeholder="password here"
+                className="bg-llblue rounded-t-md rounded-b-md block w-full px-2 pt-2 pr-10 border-b-4 focus:border-dblue focus:rounded-b-sm border-transparent focus:outline-none shadow-sm text-base text-dblue placeholder:text-dblue placeholder:text-base"
+              />
+              <div
+                className="absolute right-3 cursor-pointer w-6 h-6 flex items-center justify-center"
+                onClick={handleTogglePassword}
+              >
+                {showPassword ? <OpenedEye /> : <ClosedEye />}
+              </div>
             </div>
           </div>
-          <button
-            type="submit"
-            className="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            Register
-          </button>
-          <div className="mt-4 text-center">
-          <span className="text-gray-700">Have an account? </span>
-          <a href="/login" className="text-blue-500 hover:underline">Log in</a>
-        </div>
+
+          <div className="w-full flex justify-center">
+            <button
+              type="submit"
+              className="bg-lightyellow shadow-registerLoginCustom hover:bg-slightlydarkeryellow w-4/5 rounded-xl cursor-pointer text-dyellow text-center font-semibold text-2xl px-5 py-2 select-none mt-6"
+            >
+              Регистриране
+            </button>
+          </div>
+
+          <div className="select-none text-center flex justify-center space-x-1 text-base font-semibold opacity-80">
+            <h1 className="text-dblue">Имате профил?</h1>
+            <a href="/login" className="text-ddblue hover:underline">Вход</a>
+          </div>
         </form>
       </div>
     </div>
