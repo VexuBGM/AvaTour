@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import '../globals.css';
 import OpenedEye from '../components/OpenedEye';
 import ClosedEye from '../components/ClosedEye';
+import CloseBtn from '../components/CloseBtn';
 
 export default function Register() {
   const router = useRouter();
@@ -61,7 +62,7 @@ export default function Register() {
               autoComplete="off"
               value={formData.username}
               onChange={handleChange}
-              placeholder="username here"
+              placeholder="Въведете потребителско име"
               className="bg-llblue rounded-t-md rounded-b-md block w-full px-2 pt-2 border-b-4 focus:border-dblue focus:rounded-b-sm border-transparent focus:outline-none shadow-sm text-base text-dblue placeholder:text-dblue placeholder:text-base"
             />
           </div>
@@ -74,7 +75,7 @@ export default function Register() {
               value={formData.email}
               onChange={handleChange}
               autoComplete="off"
-              placeholder="email here"
+              placeholder="Въведете своя email"
               className="bg-llblue rounded-t-md rounded-b-md block w-full px-2 pt-2 border-b-4 focus:border-dblue focus:rounded-b-sm border-transparent focus:outline-none shadow-sm text-base text-dblue placeholder:text-dblue placeholder:text-base"
             />
           </div>
@@ -87,7 +88,7 @@ export default function Register() {
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
-                placeholder="password here"
+                placeholder="Въведете парола"
                 className="bg-llblue rounded-t-md rounded-b-md block w-full px-2 pt-2 pr-10 border-b-4 focus:border-dblue focus:rounded-b-sm border-transparent focus:outline-none shadow-sm text-base text-dblue placeholder:text-dblue placeholder:text-base"
               />
               <div
@@ -113,6 +114,13 @@ export default function Register() {
             <a href="/login" className="text-ddblue hover:underline">Вход</a>
           </div>
         </form>
+      </div>
+
+      <div className="z-10 absolute top-6 bg-red-200 select-none w-3/5 py-3 flex justify-between items-center rounded-full">
+        <h1 className="text-red-600 ml-5 font-semibold text-xl">Регистрацията беше неуспешна!</h1>
+        <div className="cursor-pointer rounded-full hover:bg-red-300 hover:bg-opacity-30 w-8 h-8 flex items-center justify-center mr-4">
+          <CloseBtn />
+        </div>
       </div>
     </div>
   );
