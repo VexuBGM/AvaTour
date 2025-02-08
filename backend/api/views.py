@@ -1,7 +1,6 @@
-from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from django.http import JsonResponse
+from django.middleware.csrf import get_token
 
-@api_view(['GET'])
-def example_view(request):
-    data = {'message': 'Hello, world!'}
-    return Response(data)
+def get_csrf_token(request):
+    """Return the CSRF token in a JSON response"""
+    return JsonResponse({"csrftoken": get_token(request)})

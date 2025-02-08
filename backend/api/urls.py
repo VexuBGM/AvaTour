@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import example_view
+from .views import get_csrf_token
 
 urlpatterns = [
-    path('example/', example_view),
+    path("csrf/", get_csrf_token),  
 ]
