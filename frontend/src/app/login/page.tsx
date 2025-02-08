@@ -4,6 +4,8 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import '../globals.css';
+import OpenedEye from '../components/OpenedEye';
+import ClosedEye from '../components/ClosedEye';
 
 export default function Login() {
   const [formData, setFormData] = useState({ username: '', password: '' });
@@ -39,48 +41,56 @@ export default function Login() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
-        <h1 className="text-2xl font-bold text-center">Login</h1>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <input
-            name="username"
-            placeholder="Username"
-            value={formData.username}
-            onChange={handleChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-          <input
-            name="password"
-            type={showPassword ? "text" : "password"}
-            placeholder="Password"
-            value={formData.password}
-            onChange={handleChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-          <div className="mt-2">
-            <label className="inline-flex items-center text-gray-700">
-              <input
-                type="checkbox"
-                checked={showPassword}
-                onChange={handleTogglePassword}
-                className="form-checkbox"
-              />
-              <span className="ml-2 select-none">Show Password</span>
-            </label>
+    <div className="h-screen flex items-center justify-center">
+      <div className="w-2/5 bg-lblue p-10 rounded-xl shadow-registerLoginCustom">
+        <form onSubmit={handleSubmit} className="space-y-4 w-full">
+          <div>
+            <label className="block text-ddblue font-bold text-2xl mb-1"><h1 className="cursor-text w-fit">Потребителско име</h1></label>
+            <input
+              name="username"
+              placeholder="Въведете Вашето потребителско име"
+              autoComplete="off"
+              value={formData.username}
+              onChange={handleChange}
+              className="bg-llblue rounded-t-md rounded-b-md block w-full px-2 pt-2 border-b-4 focus:border-dblue focus:rounded-b-sm border-transparent focus:outline-none shadow-sm text-base text-dblue placeholder:text-dblue placeholder:text-base"
+            />
           </div>
-          <button
-            type="submit"
-            className="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            Login
-          </button>
+
+          <div>
+          <label className="block text-ddblue font-bold text-2xl mb-1"><h1 className="cursor-text w-fit">Парола</h1></label>
+          <div className="relative flex items-center">
+            <input
+              name="password"
+              type={showPassword ? "text" : "password"}
+              placeholder="Въведете Вашата парола"
+              value={formData.password}
+              onChange={handleChange}
+              className="bg-llblue rounded-t-md rounded-b-md block w-full px-2 pt-2 pr-10 border-b-4 focus:border-dblue focus:rounded-b-sm border-transparent focus:outline-none shadow-sm text-base text-dblue placeholder:text-dblue placeholder:text-base"
+            />
+              <div
+                className="absolute right-3 cursor-pointer w-6 h-6 flex items-center justify-center"
+                onClick={handleTogglePassword}
+              >
+                {showPassword ? <OpenedEye /> : <ClosedEye />}
+              </div>
+            </div>
+          </div>
+
+          <div className="w-full flex justify-center">
+            <button
+              type="submit"
+              className="bg-lightyellow shadow-registerLoginCustom hover:bg-slightlydarkeryellow w-4/5 rounded-xl cursor-pointer text-dyellow text-center font-semibold text-2xl px-5 py-2 select-none mt-6"
+            >
+              Вход
+            </button>
+          </div>
+
+          <div className="select-none text-center flex justify-center space-x-1 text-base font-semibold opacity-80">
+            <h1 className="text-dblue">Нямате профил?</h1>
+            <a href="/register" className="text-ddblue hover:underline">Регистрация</a>
+          </div>
         </form>
         {message && <div className="mt-4 text-center text-red-500">{message}</div>}
-        <div className="mt-4 text-center">
-          <span className="text-gray-700">Don't have an account? </span>
-          <a href="/register" className="text-blue-500 hover:underline">Register</a>
-        </div>
       </div>
     </div>
   );
