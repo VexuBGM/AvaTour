@@ -10,6 +10,14 @@ interface Transaction {
   sum: string;
 }
 
+// Utility function to get a named cookie
+function getCookie(name: string): string | null {
+  const cookieValue = document.cookie
+    .split("; ")
+    .find((row) => row.startsWith(name + "="));
+  return cookieValue ? cookieValue.split("=")[1] : null;
+}
+
 export default function TransactionsPage() {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -35,6 +43,30 @@ export default function TransactionsPage() {
     fetchTransactions();
   }, []);
 
+  async function handleDelete(id: number) {
+    if (!window.confirm("Are you sure you want to delete this transaction?")) {
+      return;
+    }
+    const csrfToken = getCookie("csrftoken");
+
+    try {
+      const res = await fetch(`http://localhost:8000/transactions/api/transactions/${id}/`, {
+        method: "DELETE",
+        credentials: "include",
+        headers: {
+          "X-CSRFToken": csrfToken || "",
+        },
+      });
+      if (!res.ok) {
+        throw new Error(`Error: ${res.status}`);
+      }
+      // Remove the deleted transaction from state
+      setTransactions(transactions.filter(tx => tx.id !== id));
+    } catch (err: any) {
+      alert(err.message || "Failed to delete the transaction.");
+    }
+  }
+
   if (loading) {
     return <p className="text-center mt-10">Loading transactions...</p>;
   }
@@ -56,6 +88,7 @@ export default function TransactionsPage() {
               <th className="py-2 px-4 border-b">Name</th>
               <th className="py-2 px-4 border-b">Date</th>
               <th className="py-2 px-4 border-b">Sum</th>
+              <th className="py-2 px-4 border-b">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -65,6 +98,11 @@ export default function TransactionsPage() {
                 <td className="py-2 px-4 border-b">{tx.name}</td>
                 <td className="py-2 px-4 border-b text-center">{new Date(tx.date).toLocaleDateString()}</td>
                 <td className="py-2 px-4 border-b text-right">${tx.sum}</td>
+                <td className="py-2 px-4 border-b text-center">
+                  <button onClick={() => handleDelete(tx.id)} className="text-red-500 hover:underline">
+                    Delete
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
