@@ -40,7 +40,9 @@ export default function DeleteProfilePage() {
   };
 
   return (
-    <ProtectedRoute>
+    //<ProtectedRoute>
+      <div>
+
       <Navbar />
       <div className="flex flex-col items-center justify-center h-[calc(100vh-64px)] bg-gray-100">
         <h1 className="text-3xl font-bold mb-6 text-gray-800">Delete Profile</h1>
@@ -51,6 +53,8 @@ export default function DeleteProfilePage() {
           Delete
         </button>
       </div>
-    </ProtectedRoute>
+
+      </div>
+    //</ProtectedRoute>
   );
 }
