@@ -13,7 +13,6 @@ export default function Home() {
 
   const handleArrowClick = (): void => {
     setClicked(true);
-    
     const descriptionElement = document.getElementById('description');
     if (descriptionElement) {
       descriptionElement.scrollIntoView({ behavior: 'smooth' });
@@ -30,27 +29,20 @@ export default function Home() {
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY === 0) {
-        setShowTopArrow(false);
-      } else {
-        setShowTopArrow(true);
-      }
-
-      if (window.scrollY > 0) {
-        setScrolled(true);
-      } else {
         setScrolled(false);
-        if (clicked) {
-          setClicked(false);
-        }
+        setShowTopArrow(false);
+        setClicked(false);
+      } else {
+        setScrolled(true);
+        setShowTopArrow(true);
       }
     };
 
     window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [clicked]);
+  const gradientOpacityClass = clicked || scrolled ? 'opacity-0 pointer-events-none' : 'opacity-90';
 
   return (
     <div className="h-screen">
@@ -69,6 +61,7 @@ export default function Home() {
           </h1>
         </div>
       </div>
+
       <div className="z-30 h-1/3 w-full top-64 absolute">
         <div className="left-56 bottom-0 h-36 w-fit absolute flex flex-col justify-between">
           <Link href="/login">
@@ -85,11 +78,11 @@ export default function Home() {
       </div>
 
       <div
-        className={`bg-gradient-to-t from-black to-transparent opacity-0 w-full h-36 z-10 absolute bottom-0 flex items-end justify-center transition-opacity duration-500 ${clicked || scrolled ? 'opacity-0 pointer-events-none' : 'opacity-90'}`}
+        className={`bg-gradient-to-t from-black to-transparent w-full h-36 z-10 absolute bottom-0 flex items-end justify-center transition-opacity duration-500 ${gradientOpacityClass}`}
       >
         <div
           onClick={handleArrowClick}
-          className={`cursor-pointer flex justify-center items-center animate-bounce w-24 h-1/2 transition-opacity duration-500 ${clicked || scrolled ? 'opacity-0 pointer-events-none' : 'opacity-90'}`}
+          className={`cursor-pointer flex justify-center items-center animate-bounce w-24 h-1/2 transition-opacity duration-500 ${gradientOpacityClass}`}
         >
           <ArrowIcon />
         </div>
