@@ -33,8 +33,8 @@ const Navbar: React.FC = () => {
         <h1 className="mt-2 ml-2 text-lg font-semibold text-logodblue select-none">AvaTour</h1>
       </div>
       <div className="flex-1 flex justify-center gap-10">
-        <Link href="/"><h1 className="text-lg font-semibold text-ddblue hover:text-dddblue duration-150 cursor-pointer">Начало</h1></Link>
-        <Link href="/dashboard"><h1 className="text-lg font-semibold text-ddblue hover:text-dddblue duration-150 cursor-pointer">Всички фактури</h1></Link>
+        <Link href="/dashboard"><h1 className="text-lg font-semibold text-ddblue hover:text-dddblue duration-150 cursor-pointer">Начало</h1></Link>
+        <Link href="/dashboard"><h1 className="text-lg font-semibold text-ddblue hover:text-dddblue duration-150 cursor-pointer">Фактури</h1></Link>
       </div>
       <div className="relative">
         <div
