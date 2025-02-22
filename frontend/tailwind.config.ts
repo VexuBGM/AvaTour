@@ -33,6 +33,7 @@ export default {
         lblue: "#7ab7d8",
         llblue: "#e5f0fe",
         lbluehover: "#d4e5fa",
+        lbluehover2: "#6ba2bf",
         descblue: "#578fad",
 
         dashboard: "#cbddf5",

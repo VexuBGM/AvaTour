@@ -34,7 +34,8 @@ const Navbar: React.FC = () => {
       </div>
       <div className="flex-1 flex justify-center gap-10">
         <Link href="/dashboard"><h1 className="text-lg font-semibold text-ddblue hover:text-dddblue duration-150 cursor-pointer">Начало</h1></Link>
-        <Link href="/dashboard"><h1 className="text-lg font-semibold text-ddblue hover:text-dddblue duration-150 cursor-pointer">Фактури</h1></Link>
+        <Link href="/invoices"><h1 className="text-lg font-semibold text-ddblue hover:text-dddblue duration-150 cursor-pointer">Фактури</h1></Link>
+        <Link href="/create-invoice"><h1 className="text-lg font-semibold text-ddblue hover:text-dddblue duration-150 cursor-pointer">Добави фактура</h1></Link>
       </div>
       <div className="relative">
         <div

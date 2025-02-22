@@ -6,7 +6,7 @@ import EditIcon from '../components/EditIcon';
 import DoneIcon from '../components/DoneIcon';
 
 
-export default function Home() {
+export default function ProfileSettings() {
   return (
     <div className="h-screen flex flex-col">
       <Navbar />
