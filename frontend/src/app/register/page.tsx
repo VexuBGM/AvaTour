@@ -50,10 +50,10 @@ export default function Register() {
 
   return (
     <div className="h-screen flex items-center justify-center">
-      <div className="w-2/5 bg-lblue p-8 rounded-xl shadow-registerLoginCustom">
+      <div className="w-2/5 bg-lblue p-8 rounded-xl shadow-registerLoginCustom max-sm:w-[85%] max-sm:mt-[-20%] max-sm:p-6">
         {successMessage && <div className="mb-4 text-green-500">{successMessage}</div>}
         {errorMessage && <div className="mb-4 text-red-500">{errorMessage}</div>}
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4 max-sm:space-y-6">
           <div>
             <label className="block text-ddblue font-bold text-2xl mb-1"><h1 className="cursor-text w-fit">Потребителско име</h1></label>
             <input
@@ -63,7 +63,7 @@ export default function Register() {
               value={formData.username}
               onChange={handleChange}
               placeholder="Въведете потребителско име"
-              className="bg-llblue rounded-t-md rounded-b-md block w-full px-2 pt-2 border-b-4 focus:border-dblue focus:rounded-b-sm border-transparent focus:outline-none shadow-sm text-base text-dblue placeholder:text-dblue placeholder:text-base"
+              className="bg-llblue rounded-t-md rounded-b-md block w-full px-2 pt-2 border-b-2 focus:border-dblue focus:rounded-b-sm border-transparent focus:outline-none shadow-sm text-base text-dblue placeholder:text-dblue placeholder:text-base"
             />
           </div>
 
@@ -76,7 +76,7 @@ export default function Register() {
               onChange={handleChange}
               autoComplete="off"
               placeholder="Въведете своя email"
-              className="bg-llblue rounded-t-md rounded-b-md block w-full px-2 pt-2 border-b-4 focus:border-dblue focus:rounded-b-sm border-transparent focus:outline-none shadow-sm text-base text-dblue placeholder:text-dblue placeholder:text-base"
+              className="bg-llblue rounded-t-md rounded-b-md block w-full px-2 pt-2 border-b-2 focus:border-dblue focus:rounded-b-sm border-transparent focus:outline-none shadow-sm text-base text-dblue placeholder:text-dblue placeholder:text-base"
             />
           </div>
 
@@ -89,7 +89,7 @@ export default function Register() {
                 value={formData.password}
                 onChange={handleChange}
                 placeholder="Въведете парола"
-                className="bg-llblue rounded-t-md rounded-b-md block w-full px-2 pt-2 pr-10 border-b-4 focus:border-dblue focus:rounded-b-sm border-transparent focus:outline-none shadow-sm text-base text-dblue placeholder:text-dblue placeholder:text-base"
+                className="bg-llblue rounded-t-md rounded-b-md block w-full px-2 pt-2 pr-10 border-b-2 focus:border-dblue focus:rounded-b-sm border-transparent focus:outline-none shadow-sm text-base text-dblue placeholder:text-dblue placeholder:text-base"
               />
               <div
                 className="absolute right-3 cursor-pointer w-6 h-6 flex items-center justify-center"
@@ -103,7 +103,7 @@ export default function Register() {
           <div className="w-full flex justify-center">
             <button
               type="submit"
-              className="bg-lightyellow shadow-registerLoginCustom hover:bg-slightlydarkeryellow w-4/5 rounded-xl cursor-pointer text-dyellow text-center font-semibold text-2xl px-5 py-2 select-none mt-6"
+              className="bg-lightyellow shadow-registerLoginCustom hover:bg-slightlydarkeryellow w-4/5 rounded-xl cursor-pointer text-dyellow text-center font-semibold text-2xl px-5 py-2 select-none mt-6 max-sm:w-[90%]"
             >
               Регистриране
             </button>
@@ -116,8 +116,8 @@ export default function Register() {
         </form>
       </div>
 
-      <div className="z-10 absolute top-6 bg-red-200 select-none w-3/5 py-3 flex justify-between items-center rounded-full">
-        <h1 className="text-red-600 ml-5 font-semibold text-xl">Регистрацията беше неуспешна!</h1>
+      <div className="z-10 fixed top-6 bg-red-200 select-none w-3/5 py-3 flex justify-between items-center rounded-full max-sm:top-10 max-sm:w-[95%]">
+        <h1 className="text-red-600 ml-5 font-semibold text-xl max-sm:text-lg">Регистрацията беше неуспешна!</h1>
         <div className="cursor-pointer rounded-full hover:bg-red-300 hover:bg-opacity-30 w-8 h-8 flex items-center justify-center mr-4">
           <CloseBtn />
         </div>

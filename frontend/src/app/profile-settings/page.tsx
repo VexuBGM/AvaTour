@@ -23,7 +23,7 @@ export default function ProfileSettings() {
               name="username"
               autoComplete="off"
               placeholder="username"
-              className="bg-llblue rounded-t-md block w-full px-2 pt-2 border-b-4 border-dblue focus:border-transparent focus:rounded-b-md focus:outline-none focus:bg-white text-base text-dblue placeholder:text-dblue placeholder:text-base"
+              className="bg-llblue rounded-t-md block w-full px-2 pt-2 border-b-2 border-dblue focus:border-transparent focus:rounded-b-md focus:outline-none focus:bg-white text-base text-dblue placeholder:text-dblue placeholder:text-base"
             />
 
             <label className="mt-8 block text-ddblue font-bold text-2xl mb-1"><h1 className="cursor-text w-fit">Email</h1></label>
@@ -32,7 +32,7 @@ export default function ProfileSettings() {
               name="email"
               autoComplete="off"
               placeholder="email"
-              className="bg-llblue rounded-t-md block w-full px-2 pt-2 border-b-4 border-dblue focus:border-transparent focus:rounded-b-md focus:outline-none focus:bg-white text-base text-dblue placeholder:text-dblue placeholder:text-base"
+              className="bg-llblue rounded-t-md block w-full px-2 pt-2 border-b-2 border-dblue focus:border-transparent focus:rounded-b-md focus:outline-none focus:bg-white text-base text-dblue placeholder:text-dblue placeholder:text-base"
             />
 
             <label className="mt-8 block text-ddblue font-bold text-2xl mb-1"><h1 className="cursor-text w-fit">Парола</h1></label>
@@ -41,7 +41,7 @@ export default function ProfileSettings() {
                 "password"}
                 name="password"
                 placeholder="password"
-                className="bg-llblue rounded-t-md block w-full px-2 pt-2 border-b-4 border-dblue focus:border-transparent focus:rounded-b-md focus:outline-none focus:bg-white text-base text-dblue placeholder:text-dblue placeholder:text-base"
+                className="bg-llblue rounded-t-md block w-full px-2 pt-2 border-b-2 border-dblue focus:border-transparent focus:rounded-b-md focus:outline-none focus:bg-white text-base text-dblue placeholder:text-dblue placeholder:text-base"
               />
         </div>
       </div>

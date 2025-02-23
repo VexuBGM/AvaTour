@@ -20,15 +20,18 @@ const CreateInvoice = () => {
     const [additionalAmount, setAdditionalAmount] = useState('');
     const [additionalDate, setAdditionalDate] = useState<Date | null>(null);
 
-    // Handle amount change for the first input
     const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         let value = e.target.value;
-
+    
+        if (value.startsWith('.')) {
+            return;
+        }
+    
         if (/^\d*\.?\d*$/.test(value)) {
             if (value.indexOf('.') !== -1 && value.split('.').length > 2) {
                 return;
             }
-
+    
             if (value.indexOf('.') !== -1) {
                 const decimalPart = value.split('.')[1];
                 if (decimalPart && decimalPart.length > 2) {
@@ -53,15 +56,16 @@ const CreateInvoice = () => {
         }
     };
 
-    // Handle amount change for the additional input
     const handleAdditionalAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         let value = e.target.value;
-
+        if (value.startsWith('.')) {
+            return;
+        }
         if (/^\d*\.?\d*$/.test(value)) {
             if (value.indexOf('.') !== -1 && value.split('.').length > 2) {
                 return;
             }
-
+    
             if (value.indexOf('.') !== -1) {
                 const decimalPart = value.split('.')[1];
                 if (decimalPart && decimalPart.length > 2) {
@@ -72,21 +76,21 @@ const CreateInvoice = () => {
                 setAdditionalAmount(value);
             }
         }
-    };
-
+    };    
+    
     const handleAdditionalFocus = () => {
         if (additionalAmount.includes(' лв.')) {
             setAdditionalAmount(additionalAmount.replace(' лв.', ''));
         }
     };
-
+    
     const handleAdditionalBlur = () => {
         if (additionalAmount && !additionalAmount.includes('лв.')) {
             setAdditionalAmount(additionalAmount + ' лв.');
         }
     };
+     
 
-    // Handle number change for the invoice number
     const handleNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         let value = e.target.value.replace(/\D/g, '');
         if (value.length > 10) {
@@ -153,7 +157,7 @@ const CreateInvoice = () => {
                                 type="text"
                                 name="username"
                                 autoComplete="off"
-                                placeholder="Въведете потребителско име"
+                                placeholder="Въведете име"
                                 className="bg-llblue rounded-t-md rounded-b-md block w-full px-2 pt-2 border-b-4 focus:border-dblue focus:rounded-b-sm border-transparent focus:outline-none shadow-sm text-base text-dblue placeholder:text-dblue placeholder:text-base"
                             />
                         </div>
@@ -194,7 +198,7 @@ const CreateInvoice = () => {
 
                         <div className="w-full flex justify-between items-center pt-6 pb-1">
                             <div
-                                className="hover:bg-lbluehover bg-llblue w-1/12 cursor-pointer shadow-registerLoginCustom rounded-md"
+                                className="hover:bg-lbluehover bg-llblue w-10 cursor-pointer shadow-registerLoginCustom rounded-md"
                                 title={isAddIconClicked ? '' : "Ако вече е платена част от сумата, натиснете тук, за да я отбележите."}
                                 onClick={() => setIsAddIconClicked(!isAddIconClicked)}
                             >
@@ -210,7 +214,7 @@ const CreateInvoice = () => {
                         </div>
 
                         {isAddIconClicked && (
-                            <div className="border-t-4 pt-4 border-dashed border-llblue">
+                            <div className="border-t-2 pt-4 border-dashed border-llblue">
                                 <label className="text-ddblue font-bold text-2xl mb-1 flex justify-center">
                                     <h1 className="cursor-text w-fit text-center">Ако вече е платена част от сумата, запишете я тук:</h1>
                                 </label>

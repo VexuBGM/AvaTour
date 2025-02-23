@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import '../globals.css';
 import OpenedEye from '../components/OpenedEye';
 import ClosedEye from '../components/ClosedEye';
+import CloseBtn from '../components/CloseBtn';
 
 export default function Login() {
   const [formData, setFormData] = useState({ username: '', password: '' });
@@ -42,7 +43,7 @@ export default function Login() {
 
   return (
     <div className="h-screen flex items-center justify-center">
-      <div className="w-2/5 bg-lblue p-10 rounded-xl shadow-registerLoginCustom">
+      <div className="w-2/5 bg-lblue p-10 rounded-xl shadow-registerLoginCustom max-sm:w-[87%] max-sm:mt-[-20%] max-sm:p-6">
         <form onSubmit={handleSubmit} className="space-y-4 w-full">
           <div>
             <label className="block text-ddblue font-bold text-2xl mb-1"><h1 className="cursor-text w-fit">Потребителско име</h1></label>
@@ -52,7 +53,7 @@ export default function Login() {
               autoComplete="off"
               value={formData.username}
               onChange={handleChange}
-              className="bg-llblue rounded-t-md rounded-b-md block w-full px-2 pt-2 border-b-4 focus:border-dblue focus:rounded-b-sm border-transparent focus:outline-none shadow-sm text-base text-dblue placeholder:text-dblue placeholder:text-base"
+              className="bg-llblue rounded-t-md rounded-b-md block w-full px-2 pt-2 border-b-2 focus:border-dblue focus:rounded-b-sm border-transparent focus:outline-none shadow-sm text-base text-dblue placeholder:text-dblue placeholder:text-base"
             />
           </div>
 
@@ -65,7 +66,7 @@ export default function Login() {
               placeholder="Въведете Вашата парола"
               value={formData.password}
               onChange={handleChange}
-              className="bg-llblue rounded-t-md rounded-b-md block w-full px-2 pt-2 pr-10 border-b-4 focus:border-dblue focus:rounded-b-sm border-transparent focus:outline-none shadow-sm text-base text-dblue placeholder:text-dblue placeholder:text-base"
+              className="bg-llblue rounded-t-md rounded-b-md block w-full px-2 pt-2 pr-10 border-b-2 focus:border-dblue focus:rounded-b-sm border-transparent focus:outline-none shadow-sm text-base text-dblue placeholder:text-dblue placeholder:text-base"
             />
               <div
                 className="absolute right-3 cursor-pointer w-6 h-6 flex items-center justify-center"
@@ -90,7 +91,13 @@ export default function Login() {
             <a href="/register" className="text-ddblue hover:underline">Регистрация</a>
           </div>
         </form>
-        {message && <div className="mt-4 text-center text-red-500">{message}</div>}
+      </div>
+
+      <div className="z-10 fixed top-6 bg-red-200 select-none w-3/5 py-3 flex justify-between items-center rounded-full max-sm:top-10 max-sm:w-[95%]">
+        <h1 className="text-red-600 ml-5 font-semibold text-xl max-sm:text-lg">Грешка! Опитайте отново.</h1>
+        <div className="cursor-pointer rounded-full hover:bg-red-300 hover:bg-opacity-30 w-8 h-8 flex items-center justify-center mr-4">
+          <CloseBtn />
+        </div>
       </div>
     </div>
   );

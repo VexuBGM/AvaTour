@@ -10,6 +10,7 @@ export default {
     extend: {
       boxShadow: {
         ycustom: "-0.3rem 0.3rem 0 0 rgba(136, 112, 64)",
+        mobileBtnCustom: "0 0 0.5rem 0.1rem rgba(136, 112, 64, 0.7)",
         tcustom: "0 0 1rem 0.5rem rgba(50, 98, 123, 0.4)",
         registerLoginCustom: "0 0 2rem 0.5rem rgba(50, 98, 123, 0.3)",
         dashboard: "0 0 2rem 0 rgba(50, 98, 123, 0.15)",

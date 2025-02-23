@@ -27,7 +27,7 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <nav className="flex justify-between items-center p-4 bg-lblue shadow-tcustom mb-14">
+    <nav className="w-full fixed flex justify-between items-center p-4 bg-lblue shadow-tcustom">
       <div className="w-12 flex items-center">
         <img className="select-none" src="/images/logo.png" draggable="false" />
         <h1 className="mt-2 ml-2 text-lg font-semibold text-logodblue select-none">AvaTour</h1>
@@ -46,10 +46,10 @@ const Navbar: React.FC = () => {
         </div>
         {dropdownOpen && (
           <div className="absolute right-0 mt-2 w-48 bg-llblue rounded-md shadow-lg">
-            <Link href="/deleteProfile" className="block px-4 py-2 text-ddblue hover:bg-lbluehover rounded-t-md font-semibold">
+            <Link href="/profile-settings" className="block px-4 py-2 text-ddblue hover:bg-lbluehover rounded-t-md font-semibold">
               Профил
             </Link>
-            <Link href="/logout" className="block px-4 py-2 text-ddblue hover:bg-lbluehover rounded-b-md font-semibold">
+            <Link href="/" className="block px-4 py-2 text-ddblue hover:bg-lbluehover rounded-b-md font-semibold">
               Изход
             </Link>
           </div>

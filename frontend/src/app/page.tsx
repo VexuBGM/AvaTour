@@ -49,36 +49,36 @@ export default function Home() {
       <title>AvaTour</title>
 
       <div className="h-full">
-        <img className="w-planet" src="/images/landing-page-planet.png" draggable="false" />
-        <img className="w-chart absolute bottom-0 right-0" src="/images/landing-page-chart.png" draggable="false" />
+        <img className="w-planet max-sm:hidden" src="/images/landing-page-planet.png" draggable="false" />
+        <img className="w-chart absolute bottom-0 right-0 max-sm:w-full max-sm:fixed" src="/images/landing-page-chart.png" draggable="false" />
       </div>
 
-      <div className="z-20 top-5 w-full absolute">
-        <div className="w-fit relative" style={{ left: 'var(--title-left)' }}>
-          <h1 className="text-dblue text-center text-9xl font-extrabold">AvaTour</h1>
-          <h1 className="text-dyellow text-center text-3xl font-medium mt-2">
+      <div className="z-20 top-[1%] w-full absolute max-sm:top-[2%] max-sm:flex max-sm:justify-center max-sm:items-center">
+        <div className="w-2/3 relative left-[30%] max-sm:left-0 max-sm:w-full max-sm:flex max-sm:flex-col max-sm:justify-center max-sm:items-center">
+          <h1 className="text-dblue text-center text-9xl font-extrabold max-sm:text-[5.5rem]">AvaTour</h1>
+          <h1 className="text-dyellow text-center text-3xl font-medium mt-2 max-sm:mt-0 max-sm:leading-[1.5rem] max-sm:text-[1.3rem] max-sm:w-[80%]">
             Вашият фокус е туризмът, нашият – отчетността!
           </h1>
         </div>
       </div>
 
-      <div className="z-30 h-1/3 w-full top-64 absolute">
-        <div className="left-56 bottom-0 h-36 w-fit absolute flex flex-col justify-between">
+      <div className="z-30 w-full top-[73%] absolute max-sm:top-[57%]">
+        <div className="left-[15%] bottom-0 h-36 w-fit absolute flex flex-col justify-between max-sm:left-0 max-sm:w-full">
           <Link href="/login">
-            <div className="bg-lightyellow hover:bg-slightlydarkeryellow hover:shadow-none hover:translate-x-xbtn hover:translate-y-ybtn shadow-ycustom w-full rounded-xl cursor-pointer">
-              <h1 className="text-dyellow text-center font-semibold text-4xl py-2 select-none">Вход</h1>
+            <div className="bg-lightyellow hover:bg-slightlydarkeryellow sm:hover:shadow-none hover:translate-x-xbtn hover:translate-y-ybtn shadow-ycustom w-full rounded-xl cursor-pointer max-sm:w-[70%] max-sm:mx-auto max-sm:shadow-mobileBtnCustom max-sm:hover:translate-x-0 max-sm:hover:translate-y-0">
+              <h1 className="text-dyellow text-center font-semibold text-4xl py-2 select-none max-sm:text-3xl">Вход</h1>
             </div>
           </Link>
           <Link href="/register">
-            <div className="bg-lightyellow hover:bg-slightlydarkeryellow hover:shadow-none hover:translate-x-xbtn hover:translate-y-ybtn shadow-ycustom w-full rounded-xl cursor-pointer">
-              <h1 className="text-dyellow text-center font-semibold text-4xl px-5 py-2 select-none">Регистрация</h1>
+            <div className="bg-lightyellow hover:bg-slightlydarkeryellow sm:hover:shadow-none hover:translate-x-xbtn hover:translate-y-ybtn shadow-ycustom w-full rounded-xl cursor-pointer max-sm:w-[70%] max-sm:mx-auto max-sm:shadow-mobileBtnCustom max-sm:hover:translate-x-0 max-sm:hover:translate-y-0">
+              <h1 className="text-dyellow text-center font-semibold text-4xl px-5 py-2 select-none max-sm:text-3xl">Регистрация</h1>
             </div>
           </Link>
         </div>
       </div>
 
       <div
-        className={`bg-gradient-to-t from-black to-transparent w-full h-36 z-10 absolute bottom-0 flex items-end justify-center transition-opacity duration-500 ${gradientOpacityClass}`}
+        className={`bg-gradient-to-t from-black to-transparent w-full h-36 z-10 absolute bottom-0 flex items-end justify-center transition-opacity duration-500 max-sm:fixed ${gradientOpacityClass}`}
       >
         <div
           onClick={handleArrowClick}
@@ -89,7 +89,7 @@ export default function Home() {
       </div>
 
       <div id="description" className="flex justify-center items-center h-screen">
-        <div className="bg-gradient-to-b from-gradientdblue to-gradientlblue w-2/5 h-2/3 rounded-2xl">
+        <div className="bg-gradient-to-b from-gradientdblue to-gradientlblue w-2/5 h-2/3 rounded-2xl max-sm:w-[85%] max-sm:h-[50%] max-sm:mt-[-50%]">
           <h1 className="mt-7 text-center text-ddblue text-5xl font-extrabold">Какво е AvaTour?</h1>
           <h1 className="mt-10 text-center text-descblue text-2xl font-extrabold">description</h1>
         </div>
