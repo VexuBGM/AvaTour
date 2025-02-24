@@ -39,9 +39,9 @@ const NavbarMobile: React.FC = () => {
         <h1 className="mt-2 ml-2 text-lg font-semibold text-logodblue select-none">AvaTour</h1>
       </div>
       <div className={`z-20 absolute left-[85%] flex flex-col justify-between transform transition-all ease-in-out duration-300 ${isClicked ? '-translate-x-[80vw]' : ''}`} onClick={handleClick}>
-        <div className={`bg-logodblue px-[1.2rem] py-[0.1rem] transform transition-all duration-300 ${isClicked ? '-rotate-45 px-[0.7rem]' : ''}`}></div>
-        <div className={`bg-logodblue px-[1.2rem] py-[0.1rem] my-[0.6rem] transition-all duration-150 ${isClicked ? 'bg-transparent px-[0.7rem] my-[0.25rem]' : ''}`}></div>
-        <div className={`bg-logodblue px-[1.2rem] py-[0.1rem] transform transition-all duration-300 ${isClicked ? 'rotate-45 px-[0.7rem]' : ''}`}></div>
+        <div className={`bg-logodblue px-[1.2rem] py-[0.1rem] transform transition-all duration-300 ${isClicked ? '-rotate-45 px-[0.8rem]' : ''}`}></div>
+        <div className={`bg-logodblue px-[1.2rem] py-[0.1rem] my-[0.6rem] transition-all duration-150 ${isClicked ? 'bg-transparent px-[0.8rem] my-[0.3rem]' : ''}`}></div>
+        <div className={`bg-logodblue px-[1.2rem] py-[0.1rem] transform transition-all duration-300 ${isClicked ? 'rotate-45 px-[0.8rem]' : ''}`}></div>
       </div>
 
       <div className={`fixed top-0 left-0 w-full h-full bg-lblue z-10 transform transition-all duration-300 ${isClicked ? 'translate-x-0' : 'translate-x-full'}`}>

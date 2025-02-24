@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
+import NavbarMobile from '../components/NavbarMobile';
 import AddIcon from '../components/AddIcon';
 import MinimizeIcon from '../components/MinimizeIcon';
 import DatePicker from 'react-datepicker';
@@ -111,24 +112,30 @@ const CreateInvoice = () => {
 
     return (
         <div className="h-screen">
-            <Navbar />
-            <div className="flex flex-col items-center justify-center min-h-[calc(100vh-40vh)]">
-                <div className="flex justify-center items-center bg-lblue rounded-lg mb-8 w-1/5 shadow-lg">
+            <div className="block sm:hidden">
+                <NavbarMobile />
+            </div>
+            <div className="hidden sm:block">
+                <Navbar />
+            </div>
+
+            <div className="pt-[8rem] flex flex-col items-center justify-center min-h-[calc(100vh-40vh)]">
+                <div className="flex justify-center items-center bg-lblue rounded-lg mb-8 w-[17rem] shadow-lg max-sm:w-[17rem]">
                     <div
-                        className={`border-4 ${isSupplier ? 'border-dblue' : 'border-transparent'} cursor-pointer hover:bg-lbluehover2 px-3 py-2 rounded-l-lg w-1/2 flex justify-center items-center`}
+                        className={`border-4 ${isSupplier ? 'border-dblue' : 'border-transparent'} cursor-pointer hover:bg-lbluehover2 px-3 py-2 rounded-l-lg w-1/2 flex justify-center items-center max-sm:hover:bg-transparent`}
                         onClick={() => setIsSupplier(true)}
                     >
                         <h1 className="font-semibold text-ddblue">Доставчици</h1>
                     </div>
                     <div
-                        className={`border-4 ${!isSupplier ? 'border-dblue' : 'border-transparent'} cursor-pointer hover:bg-lbluehover2 px-3 py-2 rounded-r-lg w-1/2 flex justify-center items-center`}
+                        className={`border-4 ${!isSupplier ? 'border-dblue' : 'border-transparent'} cursor-pointer hover:bg-lbluehover2 px-3 py-2 rounded-r-lg w-1/2 flex justify-center items-center max-sm:hover:bg-transparent`}
                         onClick={() => setIsSupplier(false)}
                     >
                         <h1 className="font-semibold text-ddblue">Клиенти</h1>
                     </div>
                 </div>
 
-                <div className="w-2/5 bg-lblue px-8 pb-6 pt-4 rounded-xl shadow-registerLoginCustom mb-14">
+                <div className="w-2/5 bg-lblue px-8 pb-6 pt-4 rounded-xl shadow-registerLoginCustom mb-14 max-sm:w-[85%] max-sm:px-5">
                     <form className="space-y-4">
                         <div className="flex flex-col items-end">
                             <label className="block text-ddblue font-bold text-2xl mb-1">
@@ -139,7 +146,7 @@ const CreateInvoice = () => {
                                 name="number"
                                 autoComplete="off"
                                 placeholder="Въведете номер"
-                                className="bg-llblue rounded-t-md rounded-b-md block w-1/3 px-2 pt-2 border-b-4 focus:border-dblue focus:rounded-b-sm border-transparent focus:outline-none shadow-sm text-base text-dblue placeholder:text-dblue text-center placeholder:text-base placeholder:text-center"
+                                className="bg-llblue rounded-t-md rounded-b-md block w-[10rem] px-2 pt-2 border-b-4 focus:border-dblue focus:rounded-b-sm border-transparent focus:outline-none shadow-sm text-base text-dblue placeholder:text-dblue text-center placeholder:text-base placeholder:text-center max-sm:w-1/2"
                                 value={number}
                                 onChange={handleNumberChange}
                                 onFocus={handleNumberFocus}
