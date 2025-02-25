@@ -11,7 +11,7 @@ const rubik = Rubik({
 export const metadata: Metadata = {
   title: "AvaTour",
   icons: {
-    icon: "/favicon.ico",
+    icon: "/app/images/favicon.ico",
   },
 };
 
