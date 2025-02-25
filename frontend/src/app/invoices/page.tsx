@@ -41,6 +41,15 @@ const Invoices = () => {
     invoice.party_name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  const handleDelete = async (id: number) => {
+    try {
+      await axios.delete(`http://localhost:8000/api/invoices/${id}/`);
+      setInvoices(invoices.filter(invoice => invoice.id !== id));
+    } catch (error) {
+      console.error('Error deleting invoice:', error);
+    }
+  };
+
   return (
     //<ProtectedRoute>
     <div className="h-screen">
@@ -105,7 +114,7 @@ const Invoices = () => {
                 </div>
               </div>
               <div className="my-2 flex justify-end items-end w-full">
-                <div className="w-[2rem] cursor-pointer hover:bg-lbluehover2 rounded-md mr-1" title="Изтриване">
+                <div className="w-[2rem] cursor-pointer hover:bg-lbluehover2 rounded-md mr-1" title="Изтриване" onClick={() => handleDelete(invoice.id)}>
                   <DeleteIcon />
                 </div>
                 <div className="w-[2rem] cursor-pointer hover:bg-lbluehover2 rounded-md mr-1" title="Подробен изглед">
@@ -141,7 +150,7 @@ const Invoices = () => {
                 </div>
               </div>
               <div className="my-2 flex justify-end items-end w-full">
-                <div className="w-[2rem] cursor-pointer hover:bg-lbluehover2 rounded-md mr-1" title="Изтриване">
+                <div className="w-[2rem] cursor-pointer hover:bg-lbluehover2 rounded-md mr-1" title="Изтриване" onClick={() => handleDelete(invoice.id)}>
                   <DeleteIcon />
                 </div>
                 <div className="w-[2rem] cursor-pointer hover:bg-lbluehover2 rounded-md mr-1" title="Подробен изглед">
@@ -191,7 +200,7 @@ const Invoices = () => {
                 </div>
               </div>
               <div className="my-2 flex justify-end items-end w-full">
-                <div className="w-[2rem] cursor-pointer hover:bg-lbluehover2 rounded-md mr-1" title="Изтриване">
+                <div className="w-[2rem] cursor-pointer hover:bg-lbluehover2 rounded-md mr-1" title="Изтриване" onClick={() => handleDelete(invoice.id)}>
                   <DeleteIcon />
                 </div>
                 <div className="w-[2rem] cursor-pointer hover:bg-lbluehover2 rounded-md mr-1" title="Подробен изглед">
