@@ -57,7 +57,7 @@ const Invoices = () => {
         
 
 
-        <div className="bg-black w-full hidden justify-around max-sm:flex">
+        <div className="w-full hidden justify-around max-sm:flex">
           <div className="bg-gradientdblue w-1/6 pt-5 rounded-lg flex flex-col justify-center items-center max-sm:w-1/3">
             <Link href="/create-invoice" className="flex justify-center items-center"><div className="bg-white hover:bg-slate-100 rounded-lg w-5/6 cursor-pointer">
               <AddIcon />
