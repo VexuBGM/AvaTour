@@ -33,15 +33,31 @@ const NavbarMobile: React.FC = () => {
   };
 
   return (
-    <nav className="fixed w-full flex justify-between items-center p-4 bg-lblue shadow-tcustom">
+    <nav className="z-50 fixed w-full flex justify-between items-center p-4 bg-lblue shadow-tcustom">
       <div className="w-12 flex items-center">
         <img className="select-none" src="/images/logo.png" draggable="false" />
         <h1 className="mt-2 ml-2 text-lg font-semibold text-logodblue select-none">AvaTour</h1>
       </div>
-      <div className={`z-20 absolute left-[85%] flex flex-col justify-between transform transition-all ease-in-out duration-300 ${isClicked ? '-translate-x-[80vw]' : ''}`} onClick={handleClick}>
-        <div className={`bg-logodblue px-[1.2rem] py-[0.1rem] transform transition-all duration-300 ${isClicked ? '-rotate-45 px-[0.8rem]' : ''}`}></div>
-        <div className={`bg-logodblue px-[1.2rem] py-[0.1rem] my-[0.6rem] transition-all duration-150 ${isClicked ? 'bg-transparent px-[0.8rem] my-[0.3rem]' : ''}`}></div>
-        <div className={`bg-logodblue px-[1.2rem] py-[0.1rem] transform transition-all duration-300 ${isClicked ? 'rotate-45 px-[0.8rem]' : ''}`}></div>
+      <div
+        className={`z-20 absolute flex flex-col justify-center items-center h-[70%] w-fit cursor-pointer transform transition-all duration-300 ${isClicked ? 'left-[2%]' : 'left-[85%]'}`}
+        onClick={handleClick}
+      >
+
+        <div
+          className={`bg-logodblue h-[0.18rem] w-[2.4rem] transform transition-all duration-300 ${isClicked ? 'rotate-[-45deg] w-[65%]' : ''
+            }`}
+        ></div>
+
+        <div
+          className={`bg-logodblue h-[0.18rem] w-[2.4rem] transition-opacity duration-200 ${isClicked ? 'opacity-0 my-[0.35rem]' : 'opacity-100  my-[0.6rem]'
+            }`}
+        ></div>
+
+        <div
+          className={`bg-logodblue h-[0.18rem] w-[2.4rem] transform transition-all duration-300 ${isClicked ? 'rotate-[45deg] w-[65%]' : ''
+            }`}
+        ></div>
+
       </div>
 
       <div className={`fixed top-0 left-0 w-full h-full bg-lblue z-10 transform transition-all duration-300 ${isClicked ? 'translate-x-0' : 'translate-x-full'}`}>

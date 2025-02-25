@@ -75,7 +75,7 @@ export default function Register() {
               value={formData.email}
               onChange={handleChange}
               autoComplete="off"
-              placeholder="Въведете своя email"
+              placeholder="Въведете своя имейл адрес"
               className="bg-llblue rounded-t-md rounded-b-md block w-full px-2 pt-2 border-b-2 focus:border-dblue focus:rounded-b-sm border-transparent focus:outline-none shadow-sm text-base text-dblue placeholder:text-dblue placeholder:text-base"
             />
           </div>

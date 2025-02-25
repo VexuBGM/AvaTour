@@ -27,7 +27,7 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <nav className="w-full fixed flex justify-between items-center p-4 bg-lblue shadow-tcustom">
+    <nav className="z-50 w-full fixed flex justify-between items-center p-4 bg-lblue shadow-tcustom">
       <div className="w-12 flex items-center">
         <img className="select-none" src="/images/logo.png" draggable="false" />
         <h1 className="mt-2 ml-2 text-lg font-semibold text-logodblue select-none">AvaTour</h1>
