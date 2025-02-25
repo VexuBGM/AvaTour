@@ -7,7 +7,7 @@ import NavbarMobile from '../components/NavbarMobile';
 
 const Dashboard = () => {
   return (
-    //<ProtectedRoute>
+    <ProtectedRoute>
     <div className="h-screen">
 
       <div className="block sm:hidden">
@@ -26,7 +26,7 @@ const Dashboard = () => {
         </div>
       </div>
     </div>
-    //</ProtectedRoute>
+    </ProtectedRoute>
   );
 };
 
