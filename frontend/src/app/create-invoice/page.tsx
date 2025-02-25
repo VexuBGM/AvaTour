@@ -9,6 +9,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { registerLocale } from 'react-datepicker';
 import { bg } from 'date-fns/locale/bg';
+import { createInvoice, createPayment } from '../../services/page';
 
 registerLocale('bg', bg);
 
@@ -20,6 +21,9 @@ const CreateInvoice = () => {
     const [isAddIconClicked, setIsAddIconClicked] = useState(false);
     const [additionalAmount, setAdditionalAmount] = useState('');
     const [additionalDate, setAdditionalDate] = useState<Date | null>(null);
+    const [partyName, setPartyName] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
 
     const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         let value = e.target.value;
@@ -110,6 +114,49 @@ const CreateInvoice = () => {
         }
     };
 
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setIsLoading(true);
+        setError(null);
+    
+        try {
+            // Remove 'лв.' and convert to number
+            const totalAmount = parseFloat(amount.replace(' лв.', ''));
+            const invoiceData = {
+                party_type: isSupplier ? 'supplier' as const : 'client' as const,
+                party_name: partyName,
+                invoice_number: number,
+                date: selectedDate ? selectedDate.toISOString().split('T')[0] : '',
+                total_amount: totalAmount
+            };
+    
+            const invoice = await createInvoice(invoiceData);
+    
+            if (isAddIconClicked && additionalAmount && additionalDate) {
+                const paymentAmount = parseFloat(additionalAmount.replace(' лв.', ''));
+                await createPayment(invoice.id, {
+                    amount: paymentAmount,
+                    payment_date: additionalDate.toISOString().split('T')[0]
+                });
+            }
+    
+            // Reset form
+            setPartyName('');
+            setAmount('');
+            setNumber('');
+            setSelectedDate(null);
+            setIsAddIconClicked(false);
+            setAdditionalAmount('');
+            setAdditionalDate(null);
+    
+        } catch (err) {
+            setError('An error occurred while creating the invoice');
+            console.error(err);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     return (
         <div className="h-screen">
             <div className="block sm:hidden">
@@ -136,7 +183,7 @@ const CreateInvoice = () => {
                 </div>
 
                 <div className="w-2/5 bg-lblue px-8 pb-6 pt-4 rounded-xl shadow-registerLoginCustom mb-14 max-sm:w-[85%] max-sm:px-5">
-                    <form className="space-y-4">
+                    <form className="space-y-4" onSubmit={handleSubmit}>
                         <div className="flex flex-col items-end">
                             <label className="block text-ddblue font-bold text-2xl mb-1">
                                 <h1 className="cursor-text w-fit">Номер</h1>
@@ -166,6 +213,8 @@ const CreateInvoice = () => {
                                 autoComplete="off"
                                 placeholder="Въведете име"
                                 className="bg-llblue rounded-t-md rounded-b-md block w-full px-2 pt-2 border-b-4 focus:border-dblue focus:rounded-b-sm border-transparent focus:outline-none shadow-sm text-base text-dblue placeholder:text-dblue placeholder:text-base"
+                                value={partyName}
+                                onChange={(e) => setPartyName(e.target.value)}
                             />
                         </div>
 
@@ -214,9 +263,10 @@ const CreateInvoice = () => {
 
                             <button
                                 type="submit"
-                                className="w-3/5 bg-lightyellow shadow-registerLoginCustom hover:bg-slightlydarkeryellow rounded-xl cursor-pointer text-dyellow text-center font-semibold text-2xl px-5 py-2 select-none"
-                            >
-                                Създаване
+                                disabled={isLoading}
+                                className="w-3/5 bg-lightyellow shadow-registerLoginCustom hover:bg-slightlydarkeryellow rounded-xl cursor-pointer text-dyellow text-center font-semibold text-2xl px-5 py-2 select-none disabled:opacity-50"
+                                >
+                                {isLoading ? 'Създаване...' : 'Създаване'}
                             </button>
                         </div>
 
@@ -258,6 +308,12 @@ const CreateInvoice = () => {
                                         />
                                     </div>
                                 </div>
+                            </div>
+                            
+                        )}
+                        {error && (
+                            <div className="text-red-500 text-center font-semibold">
+                                {error}
                             </div>
                         )}
                     </form>
