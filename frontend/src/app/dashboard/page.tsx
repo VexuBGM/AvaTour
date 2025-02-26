@@ -1,31 +1,135 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ProtectedRoute from '../components/ProtectedRoute';
 import Navbar from '../components/Navbar';
 import NavbarMobile from '../components/NavbarMobile';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import { Pie } from 'react-chartjs-2';
+import axios from 'axios';
+import Link from 'next/link';
+
+ChartJS.register(ArcElement, Tooltip, Legend);
+
+interface Invoice {
+  id: number;
+  party_name: string;
+  party_type: string;
+  invoice_number: string;
+  total_amount: number;
+  date: string;
+  is_fully_paid: boolean;
+}
 
 const Dashboard = () => {
+  const [totalPaid, setTotalPaid] = useState(0);
+  const [totalUnpaid, setTotalUnpaid] = useState(0);
+  const [recentInvoices, setRecentInvoices] = useState<Invoice[]>([]);
+
+  useEffect(() => {
+    const fetchInvoiceData = async () => {
+      try {
+        const response = await axios.get('http://localhost:8000/api/invoices/');
+        const invoices = response.data;
+        
+        let paid = 0;
+        let unpaid = 0;
+        
+        invoices.forEach((invoice: any) => {
+          paid += Number(invoice.total_paid);
+          unpaid += Number(invoice.remaining_amount);
+        });
+
+        // Sort invoices by date and get the last 3
+        const sortedInvoices = [...invoices].sort((a, b) => 
+          new Date(b.date).getTime() - new Date(a.date).getTime()
+        ).slice(0, 3);
+
+        setTotalPaid(paid);
+        setTotalUnpaid(unpaid);
+        setRecentInvoices(sortedInvoices);
+      } catch (error) {
+        console.error('Error fetching invoice data:', error);
+      }
+    };
+
+    fetchInvoiceData();
+  }, []);
+
+  const chartData = {
+    labels: ['Платени', 'Неплатени'],
+    datasets: [
+      {
+        data: [totalPaid, totalUnpaid],
+        backgroundColor: ['#4CAF50', '#FF5252'],
+        borderColor: ['#43A047', '#D32F2F'],
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  const options = {
+    plugins: {
+      legend: {
+        position: 'bottom' as const,
+        labels: {
+          font: {
+            size: 16,
+          },
+        },
+      },
+    },
+  };
+
   return (
     <ProtectedRoute>
-    <div className="h-screen">
-
-      <div className="block sm:hidden">
-        <NavbarMobile />
-      </div>
-      <div className="hidden sm:block">
-        <Navbar />
-      </div>
-      
-      <div className="pt-[8.5rem] flex flex-col gap-20 items-center justify-center pb-16">
-        <div className="flex items-center justify-center bg-dashboard w-[66%] h-[66vh] rounded-lg shadow-dashboard max-sm:w-[85%] max-sm:h-[30vh]">
-          <h1>Някаква диаграма</h1>
+      <div className="h-screen">
+        <div className="block sm:hidden">
+          <NavbarMobile />
         </div>
-        <div className="flex items-center justify-center bg-dashboard w-[66%] h-[33vh] rounded-lg shadow-dashboard max-sm:w-[85%] max-sm:h-[20vh]">
-          <h1>Последните 3 фактури ще бъдат тук</h1>
+        <div className="hidden sm:block">
+          <Navbar />
+        </div>
+        
+        <div className="pt-[8.5rem] flex flex-col gap-20 items-center justify-center pb-16">
+          <div className="flex flex-col items-center justify-center bg-dashboard w-[66%] h-[66vh] rounded-lg shadow-dashboard max-sm:w-[85%] max-sm:h-[30vh]">
+            <h2 className="text-2xl font-semibold mb-4">Статистика на плащанията</h2>
+            <div className="w-[80%] h-[80%] flex items-center justify-center">
+              <Pie data={chartData} options={options} />
+            </div>
+            <div className="mt-4 text-center">
+              <p className="text-lg">Общо платени: {totalPaid.toFixed(2)} лв.</p>
+              <p className="text-lg">Общо неплатени: {totalUnpaid.toFixed(2)} лв.</p>
+            </div>
+          </div>
+          <div className="flex flex-col items-center justify-center bg-dashboard w-[66%] h-fit rounded-lg shadow-dashboard max-sm:w-[85%] py-6">
+            <h2 className="text-2xl font-semibold mb-6">Последни фактури</h2>
+            <div className="w-full px-8 flex flex-col gap-4">
+              {recentInvoices.map((invoice) => (
+                <Link href={`/invoices/${invoice.id}`} key={invoice.id}>
+                  <div className="bg-white rounded-lg p-4 shadow-md hover:shadow-lg transition-shadow cursor-pointer">
+                    <div className="flex justify-between items-center">
+                      <div>
+                        <p className="text-lg font-semibold">{invoice.party_name}</p>
+                        <p className="text-sm text-gray-600">№ {invoice.invoice_number}</p>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-lg font-bold">{invoice.total_amount} лв.</p>
+                        <p className="text-sm text-gray-600">{invoice.date}</p>
+                      </div>
+                      {invoice.is_fully_paid && (
+                        <span className="ml-4 bg-green-500 text-white px-2 py-1 rounded-md text-sm">
+                          ПЛАТЕНА
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
-    </div>
     </ProtectedRoute>
   );
 };
