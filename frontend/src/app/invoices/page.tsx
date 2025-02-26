@@ -79,8 +79,8 @@ const Invoices = () => {
         </div>
 
         {/* компютри */}
-        <div className="w-[93%] flex justify-between h-fit max-sm:hidden">
-          <div className="shadow-invoiceCustom bg-gradientdblue w-1/6 pt-4 rounded-lg flex flex-col justify-between items-center max-sm:w-1/3">
+        <div className="w-[93%] flex flex-row flex-wrap gap-4 justify-start h-fit max-sm:hidden">
+          <div className="shadow-invoiceCustom bg-gradientdblue w-[18%] pt-4 rounded-lg flex flex-col justify-between items-center">
             <Link href="/create-invoice" className="flex justify-center items-center">
               <div className="bg-white hover:bg-slate-100 rounded-lg w-5/6 cursor-pointer">
                 <AddIcon />
@@ -90,44 +90,8 @@ const Invoices = () => {
               <h1 className="text-dddblue font-semibold text-xl">Добави</h1>
             </div>
           </div>
-          {filteredInvoices.slice(0, 4).map((invoice) => (
-            <div key={invoice.id} className="shadow-invoiceCustom bg-gradientdblue w-[18%] pt-1 rounded-lg flex flex-col justify-around items-center max-sm:w-1/3">
-              <div className="mt-2 mb-2 w-full">
-                <h1 className="text-dddblue font-semibold text-xl text-center">{invoice.party_type}</h1>
-              </div>
-              <div className="border-y-2 border-dashed border-llblue pt-2 pb-2 px-4 flex flex-col items-start w-full gap-1">
-                <div className="w-full flex gap-2">
-                  <h1 className="text-dddblue font-semibold text-xl">Номер:</h1>
-                  <span className="text-dddblue text-xl">{invoice.invoice_number}</span>
-                </div>
-                <div className="w-full flex gap-2">
-                  <h1 className="text-dddblue font-semibold text-xl">Име:</h1>
-                  <span className="text-dddblue text-xl">{invoice.party_name}</span>
-                </div>
-                <div className="w-full flex gap-2">
-                  <h1 className="text-dddblue font-semibold text-xl">Сума:</h1>
-                  <span className="text-dddblue text-xl">{invoice.total_amount} лв.</span>
-                </div>
-                <div className="w-full flex gap-2">
-                  <h1 className="text-dddblue font-semibold text-xl">Дата:</h1>
-                  <span className="text-dddblue text-xl">{invoice.date}</span>
-                </div>
-              </div>
-              <div className="my-2 flex justify-end items-end w-full">
-                <div className="w-[2rem] cursor-pointer hover:bg-lbluehover2 rounded-md mr-1" title="Изтриване" onClick={() => handleDelete(invoice.id)}>
-                  <DeleteIcon />
-                </div>
-                <Link href={`/invoices/${invoice.id}`} className="w-[2rem] cursor-pointer hover:bg-lbluehover2 rounded-md mr-1" title="Подробен изглед">
-                  <MoreInNewTabIcon />
-                </Link>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="mt-12 w-[93%] flex justify-between max-sm:hidden">
-          {filteredInvoices.slice(4, 8).map((invoice) => (
-            <div key={invoice.id} className="shadow-invoiceCustom bg-gradientdblue w-[18%] pt-1 rounded-lg flex flex-col justify-around items-center max-sm:w-1/3">
+          {filteredInvoices.map((invoice) => (
+            <div key={invoice.id} className="shadow-invoiceCustom bg-gradientdblue w-[18%] pt-1 rounded-lg flex flex-col justify-around items-center">
               <div className="mt-2 mb-2 w-full">
                 <h1 className="text-dddblue font-semibold text-xl text-center">{invoice.party_type}</h1>
               </div>
@@ -162,8 +126,8 @@ const Invoices = () => {
         </div>
 
         {/* мобилни устройства */}
-        <div className="w-full hidden justify-around max-sm:flex">
-          <div className="shadow-invoiceCustom bg-gradientdblue w-1/2 pt-4 rounded-lg flex flex-col justify-between items-center max-sm:w-[50%]">
+        <div className="w-full hidden flex-col gap-4 max-sm:flex">
+          <div className="shadow-invoiceCustom bg-gradientdblue w-[70%] mx-auto pt-4 rounded-lg flex flex-col justify-between items-center">
             <Link href="/create-invoice" className="flex justify-center items-center">
               <div className="bg-white hover:bg-slate-100 rounded-lg w-5/6 cursor-pointer">
                 <AddIcon />
@@ -173,43 +137,43 @@ const Invoices = () => {
               <h1 className="text-dddblue font-semibold text-xl">Добави</h1>
             </div>
           </div>
-        </div>
-
-        {filteredInvoices.map((invoice) => (
-          <div key={invoice.id} className="mt-14 w-full hidden justify-around max-sm:flex">
-            <div className="shadow-invoiceCustom bg-gradientdblue w-1/6 pt-1 rounded-lg flex flex-col justify-around items-center max-sm:w-[70%]">
-              <div className="mt-2 mb-2 w-full">
-                <h1 className="text-dddblue font-semibold text-xl text-center">{invoice.party_type}</h1>
-              </div>
-              <div className="border-y-2 border-dashed border-llblue pt-2 pb-2 px-4 flex flex-col justify-center items-center w-full gap-1">
-                <div className="w-full flex gap-2">
-                  <h1 className="text-dddblue font-semibold text-xl">Номер:</h1>
-                  <span className="text-dddblue text-xl">{invoice.invoice_number}</span>
+          
+          {filteredInvoices.map((invoice) => (
+            <div key={invoice.id} className="w-[70%] mx-auto">
+              <div className="shadow-invoiceCustom bg-gradientdblue w-1/6 pt-1 rounded-lg flex flex-col justify-around items-center max-sm:w-[70%]">
+                <div className="mt-2 mb-2 w-full">
+                  <h1 className="text-dddblue font-semibold text-xl text-center">{invoice.party_type}</h1>
                 </div>
-                <div className="w-full flex gap-2">
-                  <h1 className="text-dddblue font-semibold text-xl">Име:</h1>
-                  <span className="text-dddblue text-xl">{invoice.party_name}</span>
+                <div className="border-y-2 border-dashed border-llblue pt-2 pb-2 px-4 flex flex-col justify-center items-center w-full gap-1">
+                  <div className="w-full flex gap-2">
+                    <h1 className="text-dddblue font-semibold text-xl">Номер:</h1>
+                    <span className="text-dddblue text-xl">{invoice.invoice_number}</span>
+                  </div>
+                  <div className="w-full flex gap-2">
+                    <h1 className="text-dddblue font-semibold text-xl">Име:</h1>
+                    <span className="text-dddblue text-xl">{invoice.party_name}</span>
+                  </div>
+                  <div className="w-full flex gap-2">
+                    <h1 className="text-dddblue font-semibold text-xl">Сума:</h1>
+                    <span className="text-dddblue text-xl">{invoice.total_amount} лв.</span>
+                  </div>
+                  <div className="w-full flex gap-2">
+                    <h1 className="text-dddblue font-semibold text-xl">Дата:</h1>
+                    <span className="text-dddblue text-xl">{invoice.date}</span>
+                  </div>
                 </div>
-                <div className="w-full flex gap-2">
-                  <h1 className="text-dddblue font-semibold text-xl">Сума:</h1>
-                  <span className="text-dddblue text-xl">{invoice.total_amount} лв.</span>
+                <div className="my-2 flex justify-end items-end w-full">
+                  <div className="w-[2rem] cursor-pointer hover:bg-lbluehover2 rounded-md mr-1" title="Изтриване" onClick={() => handleDelete(invoice.id)}>
+                    <DeleteIcon />
+                  </div>
+                  <Link href={`/invoices/${invoice.id}`} className="w-[2rem] cursor-pointer hover:bg-lbluehover2 rounded-md mr-1" title="Подробен изглед">
+                    <MoreInNewTabIcon />
+                  </Link>
                 </div>
-                <div className="w-full flex gap-2">
-                  <h1 className="text-dddblue font-semibold text-xl">Дата:</h1>
-                  <span className="text-dddblue text-xl">{invoice.date}</span>
-                </div>
-              </div>
-              <div className="my-2 flex justify-end items-end w-full">
-                <div className="w-[2rem] cursor-pointer hover:bg-lbluehover2 rounded-md mr-1" title="Изтриване" onClick={() => handleDelete(invoice.id)}>
-                  <DeleteIcon />
-                </div>
-                <Link href={`/invoices/${invoice.id}`} className="w-[2rem] cursor-pointer hover:bg-lbluehover2 rounded-md mr-1" title="Подробен изглед">
-                  <MoreInNewTabIcon />
-                </Link>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
     //</ProtectedRoute>
