@@ -93,12 +93,17 @@ export default function Login() {
         </form>
       </div>
 
-      <div className="z-10 fixed top-6 bg-red-200 select-none w-3/5 py-3 flex justify-between items-center rounded-full max-sm:top-10 max-sm:w-[95%]">
-        <h1 className="text-red-600 ml-5 font-semibold text-xl max-sm:text-lg">Грешка! Опитайте отново.</h1>
-        <div className="cursor-pointer rounded-full hover:bg-red-300 hover:bg-opacity-30 w-8 h-8 flex items-center justify-center mr-4">
-          <CloseBtn />
+      {message && (
+        <div className="z-10 fixed top-6 bg-red-200 select-none w-3/5 py-3 flex justify-between items-center rounded-full max-sm:top-10 max-sm:w-[95%]">
+          <h1 className="text-red-600 ml-5 font-semibold text-xl max-sm:text-lg">{message}</h1>
+          <div 
+            className="cursor-pointer rounded-full hover:bg-red-300 hover:bg-opacity-30 w-8 h-8 flex items-center justify-center mr-4"
+            onClick={() => setMessage('')}
+          >
+            <CloseBtn />
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

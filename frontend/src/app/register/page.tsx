@@ -51,8 +51,6 @@ export default function Register() {
   return (
     <div className="h-screen flex items-center justify-center">
       <div className="w-2/5 bg-lblue p-8 rounded-xl shadow-registerLoginCustom max-sm:w-[85%] max-sm:mt-[-20%] max-sm:p-6">
-        {successMessage && <div className="mb-4 text-green-500">{successMessage}</div>}
-        {errorMessage && <div className="mb-4 text-red-500">{errorMessage}</div>}
         <form onSubmit={handleSubmit} className="space-y-4 max-sm:space-y-6">
           <div>
             <label className="block text-ddblue font-bold text-2xl mb-1"><h1 className="cursor-text w-fit">Потребителско име</h1></label>
@@ -116,12 +114,17 @@ export default function Register() {
         </form>
       </div>
 
-      <div className="z-10 fixed top-6 bg-red-200 select-none w-3/5 py-3 flex justify-between items-center rounded-full max-sm:top-10 max-sm:w-[95%]">
-        <h1 className="text-red-600 ml-5 font-semibold text-xl max-sm:text-lg">Регистрацията беше неуспешна!</h1>
-        <div className="cursor-pointer rounded-full hover:bg-red-300 hover:bg-opacity-30 w-8 h-8 flex items-center justify-center mr-4">
-          <CloseBtn />
+      {errorMessage && (
+        <div className="z-10 fixed top-6 bg-red-200 select-none w-3/5 py-3 flex justify-between items-center rounded-full max-sm:top-10 max-sm:w-[95%]">
+          <h1 className="text-red-600 ml-5 font-semibold text-xl max-sm:text-lg">{errorMessage}</h1>
+          <div 
+            className="cursor-pointer rounded-full hover:bg-red-300 hover:bg-opacity-30 w-8 h-8 flex items-center justify-center mr-4"
+            onClick={() => setErrorMessage('')}
+          >
+            <CloseBtn />
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
