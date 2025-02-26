@@ -5,6 +5,7 @@ import { useParams } from 'next/navigation';
 import axios from 'axios';
 import Navbar from '../../components/Navbar';
 import NavbarMobile from '../../components/NavbarMobile';
+import DeleteIcon from '../../components/DeleteIcon';
 
 interface Payment {
   id: number;
@@ -57,6 +58,19 @@ export default function InvoiceDetails() {
       setError('');
     } catch (error: any) {
       setError(error.response?.data?.error || 'Error adding payment');
+    }
+  };
+
+  const handleDeletePayment = async (paymentId: number) => {
+    if (window.confirm('Are you sure you want to delete this payment?')) {
+      try {
+        await axios.delete(
+          `http://localhost:8000/api/invoices/${params.id}/payments/${paymentId}/`
+        );
+        fetchInvoice(); // Refresh invoice data
+      } catch (error) {
+        console.error('Error deleting payment:', error);
+      }
     }
   };
 
@@ -117,16 +131,25 @@ export default function InvoiceDetails() {
 
           <div>
             <h2 className="text-xl font-bold text-dddblue mb-3">Payment History</h2>
-            <div className="bg-white rounded-lg p-4">
+            <div className="bg-white rounded-lg px-4">
               {invoice.payments.length > 0 ? (
                 invoice.payments.map((payment) => (
-                  <div key={payment.id} className="border-b py-2 last:border-b-0">
-                    <p className="text-dddblue">
-                      <strong>Amount:</strong> {payment.amount} лв.
-                    </p>
-                    <p className="text-dddblue">
-                      <strong>Date:</strong> {payment.payment_date}
-                    </p>
+                  <div key={payment.id} className="border-b py-2 last:border-b-0 flex justify-between items-center">
+                    <div>
+                      <p className="text-dddblue">
+                        <strong>Amount:</strong> {payment.amount} лв.
+                      </p>
+                      <p className="text-dddblue">
+                        <strong>Date:</strong> {payment.payment_date}
+                      </p>
+                    </div>
+                    <button
+                      onClick={() => handleDeletePayment(payment.id)}
+                      className="p-2 hover:bg-red-100 rounded-full w-24"
+                      title="Delete Payment"
+                    >
+                      <DeleteIcon />
+                    </button>
                   </div>
                 ))
               ) : (

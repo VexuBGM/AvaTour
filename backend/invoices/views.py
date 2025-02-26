@@ -35,3 +35,17 @@ class InvoiceViewSet(viewsets.ModelViewSet):
         payments = invoice.payments.all().order_by('-payment_date')
         serializer = PaymentSerializer(payments, many=True)
         return Response(serializer.data)
+
+    @action(detail=True, methods=['delete'], url_path='payments/(?P<payment_id>[^/.]+)')
+    def delete_payment(self, request, pk=None, payment_id=None):
+        invoice = self.get_object()
+        try:
+            payment = invoice.payments.get(id=payment_id)
+            payment.delete()
+            invoice_serializer = InvoiceSerializer(invoice)
+            return Response(invoice_serializer.data)
+        except Payment.DoesNotExist:
+            return Response(
+                {"error": "Payment not found"},
+                status=status.HTTP_404_NOT_FOUND
+            )
