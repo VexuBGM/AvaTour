@@ -19,6 +19,7 @@ const Invoices = () => {
     invoice_number: string;
     total_amount: number;
     date: string;
+    is_fully_paid: boolean;  
   }
 
   const [invoices, setInvoices] = useState<Invoice[]>([]);
@@ -48,6 +49,10 @@ const Invoices = () => {
     } catch (error) {
       console.error('Error deleting invoice:', error);
     }
+  };
+
+  const paidCardStyle = {
+    background: 'linear-gradient(to bottom right, #427996, #427996)',
   };
 
   return (
@@ -91,7 +96,11 @@ const Invoices = () => {
             </div>
           </div>
           {filteredInvoices.map((invoice) => (
-            <div key={invoice.id} className="shadow-invoiceCustom bg-gradientdblue w-[18%] pt-1 rounded-lg flex flex-col justify-around items-center">
+            <div 
+              key={invoice.id} 
+              className="shadow-invoiceCustom bg-gradientdblue w-[18%] pt-1 rounded-lg flex flex-col justify-around items-center"
+              style={invoice.is_fully_paid ? paidCardStyle : {}}
+            >
               <div className="mt-2 mb-2 w-full">
                 <h1 className="text-dddblue font-semibold text-xl text-center">{invoice.party_type}</h1>
               </div>
@@ -112,6 +121,13 @@ const Invoices = () => {
                   <h1 className="text-dddblue font-semibold text-xl">Дата:</h1>
                   <span className="text-dddblue text-xl">{invoice.date}</span>
                 </div>
+                {invoice.is_fully_paid && (
+                  <div className="w-full flex justify-center mt-2">
+                    <span className="bg-green-500 text-white px-2 py-1 rounded-md text-sm font-semibold">
+                      ПЛАТЕНА
+                    </span>
+                  </div>
+                )}
               </div>
               <div className="my-2 flex justify-end items-end w-full">
                 <div className="w-[2rem] cursor-pointer hover:bg-lbluehover2 rounded-md mr-1" title="Изтриване" onClick={() => handleDelete(invoice.id)}>
@@ -140,7 +156,10 @@ const Invoices = () => {
           
           {filteredInvoices.map((invoice) => (
             <div key={invoice.id} className="w-[70%] mx-auto">
-              <div className="shadow-invoiceCustom bg-gradientdblue w-1/6 pt-1 rounded-lg flex flex-col justify-around items-center max-sm:w-[70%]">
+              <div 
+                className="shadow-invoiceCustom bg-gradientdblue w-1/6 pt-1 rounded-lg flex flex-col justify-around items-center max-sm:w-[70%]"
+                style={invoice.is_fully_paid ? paidCardStyle : {}}
+              >
                 <div className="mt-2 mb-2 w-full">
                   <h1 className="text-dddblue font-semibold text-xl text-center">{invoice.party_type}</h1>
                 </div>
@@ -161,6 +180,13 @@ const Invoices = () => {
                     <h1 className="text-dddblue font-semibold text-xl">Дата:</h1>
                     <span className="text-dddblue text-xl">{invoice.date}</span>
                   </div>
+                  {invoice.is_fully_paid && (
+                    <div className="w-full flex justify-center mt-2">
+                      <span className="bg-green-500 text-white px-2 py-1 rounded-md text-sm font-semibold">
+                        ПЛАТЕНА
+                      </span>
+                    </div>
+                  )}
                 </div>
                 <div className="my-2 flex justify-end items-end w-full">
                   <div className="w-[2rem] cursor-pointer hover:bg-lbluehover2 rounded-md mr-1" title="Изтриване" onClick={() => handleDelete(invoice.id)}>
