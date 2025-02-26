@@ -117,9 +117,9 @@ const Invoices = () => {
                 <div className="w-[2rem] cursor-pointer hover:bg-lbluehover2 rounded-md mr-1" title="Изтриване" onClick={() => handleDelete(invoice.id)}>
                   <DeleteIcon />
                 </div>
-                <div className="w-[2rem] cursor-pointer hover:bg-lbluehover2 rounded-md mr-1" title="Подробен изглед">
+                <Link href={`/invoices/${invoice.id}`} className="w-[2rem] cursor-pointer hover:bg-lbluehover2 rounded-md mr-1" title="Подробен изглед">
                   <MoreInNewTabIcon />
-                </div>
+                </Link>
               </div>
             </div>
           ))}
@@ -153,9 +153,9 @@ const Invoices = () => {
                 <div className="w-[2rem] cursor-pointer hover:bg-lbluehover2 rounded-md mr-1" title="Изтриване" onClick={() => handleDelete(invoice.id)}>
                   <DeleteIcon />
                 </div>
-                <div className="w-[2rem] cursor-pointer hover:bg-lbluehover2 rounded-md mr-1" title="Подробен изглед">
+                <Link href={`/invoices/${invoice.id}`} className="w-[2rem] cursor-pointer hover:bg-lbluehover2 rounded-md mr-1" title="Подробен изглед">
                   <MoreInNewTabIcon />
-                </div>
+                </Link>
               </div>
             </div>
           ))}
@@ -203,9 +203,9 @@ const Invoices = () => {
                 <div className="w-[2rem] cursor-pointer hover:bg-lbluehover2 rounded-md mr-1" title="Изтриване" onClick={() => handleDelete(invoice.id)}>
                   <DeleteIcon />
                 </div>
-                <div className="w-[2rem] cursor-pointer hover:bg-lbluehover2 rounded-md mr-1" title="Подробен изглед">
+                <Link href={`/invoices/${invoice.id}`} className="w-[2rem] cursor-pointer hover:bg-lbluehover2 rounded-md mr-1" title="Подробен изглед">
                   <MoreInNewTabIcon />
-                </div>
+                </Link>
               </div>
             </div>
           </div>

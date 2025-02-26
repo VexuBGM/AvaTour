@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.validators import MinValueValidator
 from decimal import Decimal
+from django.core.exceptions import ValidationError
 
 class Invoice(models.Model):
     PARTY_TYPE_CHOICES = [
@@ -15,8 +16,27 @@ class Invoice(models.Model):
     total_amount = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(Decimal('0.00'))])
     created_at = models.DateTimeField(auto_now_add=True)
 
+    def get_total_payments(self):
+        return sum(payment.amount for payment in self.payments.all())
+
+    def get_remaining_amount(self):
+        return self.total_amount - self.get_total_payments()
+
+    def is_fully_paid(self):
+        return self.get_remaining_amount() <= 0
+
 class Payment(models.Model):
     invoice = models.ForeignKey(Invoice, related_name='payments', on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(Decimal('0.00'))])
     payment_date = models.DateField()
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def clean(self):
+        if not self.pk:  # Only for new payments
+            total_paid = self.invoice.get_total_payments()
+            if total_paid + self.amount > self.invoice.total_amount:
+                raise ValidationError('Total payments cannot exceed invoice amount')
+
+    def save(self, *args, **kwargs):
+        self.clean()
+        super().save(*args, **kwargs)
