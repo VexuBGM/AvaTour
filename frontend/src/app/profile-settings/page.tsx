@@ -63,6 +63,26 @@ export default function ProfileSettings() {
     }
   };
 
+  const handleDelete = async () => {
+    try {
+      const response = await axios.delete('http://localhost:8000/api/accounts/delete/', {
+        headers: {
+          'X-CSRFToken': csrfToken,
+        },
+        withCredentials: true,
+      });
+      if (response.status === 200) {
+        alert("Profile deleted successfully!");
+        // Redirect to login page or home page after deletion
+        window.location.href = "/login";
+      } else {
+        alert("Failed to delete profile.");
+      }
+    } catch (error) {
+      alert("Failed to delete profile.");
+    }
+  };
+
   return (
     <div className="h-screen">
       <div className="block sm:hidden">
@@ -167,6 +187,14 @@ export default function ProfileSettings() {
               onClick={() => setFormData({ username: "", email: "", password: "" })}
             >
               Отхвърляне на промените
+            </button>
+
+            <button
+              type="button"
+              className="bg-red-600 shadow-mobileBtnCustom hover:bg-red-700 w-[20rem] rounded-xl cursor-pointer text-white text-center font-semibold text-xl px-5 py-2 select-none max-sm:w-[100%]"
+              onClick={handleDelete}
+            >
+              Изтриване на профила
             </button>
           </div>
         </div>
