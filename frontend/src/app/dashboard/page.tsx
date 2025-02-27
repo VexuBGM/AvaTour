@@ -24,6 +24,8 @@ interface Invoice {
 const Dashboard = () => {
   const [totalPaid, setTotalPaid] = useState(0);
   const [totalUnpaid, setTotalUnpaid] = useState(0);
+  const [totalPaidToClients, setTotalPaidToClients] = useState(0);
+  const [totalPaidToSuppliers, setTotalPaidToSuppliers] = useState(0);
   const [recentInvoices, setRecentInvoices] = useState<Invoice[]>([]);
 
   useEffect(() => {
@@ -34,10 +36,17 @@ const Dashboard = () => {
         
         let paid = 0;
         let unpaid = 0;
+        let paidToClients = 0;
+        let paidToSuppliers = 0;
         
         invoices.forEach((invoice: any) => {
           paid += Number(invoice.total_paid);
           unpaid += Number(invoice.remaining_amount);
+          if (invoice.party_type === 'client') {
+            paidToClients += Number(invoice.total_paid);
+          } else if (invoice.party_type === 'supplier') {
+            paidToSuppliers += Number(invoice.total_paid);
+          }
         });
 
         // Sort invoices by date and get the last 3
@@ -47,6 +56,8 @@ const Dashboard = () => {
 
         setTotalPaid(paid);
         setTotalUnpaid(unpaid);
+        setTotalPaidToClients(paidToClients);
+        setTotalPaidToSuppliers(paidToSuppliers);
         setRecentInvoices(sortedInvoices);
       } catch (error) {
         console.error('Error fetching invoice data:', error);
@@ -56,11 +67,25 @@ const Dashboard = () => {
     fetchInvoiceData();
   }, []);
 
-  const chartData = {
+  const netBalance = totalPaidToClients - totalPaidToSuppliers;
+
+  const chartDataPaidVsUnpaid = {
     labels: ['Платени', 'Неплатени'],
     datasets: [
       {
         data: [totalPaid, totalUnpaid],
+        backgroundColor: ['#4CAF50', '#FF5252'],
+        borderColor: ['#43A047', '#D32F2F'],
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  const chartDataClientsVsSuppliers = {
+    labels: ['Платени на клиенти', 'Платени на доставчици'],
+    datasets: [
+      {
+        data: [totalPaidToClients, totalPaidToSuppliers],
         backgroundColor: ['#4CAF50', '#FF5252'],
         borderColor: ['#43A047', '#D32F2F'],
         borderWidth: 1,
@@ -92,14 +117,25 @@ const Dashboard = () => {
         </div>
         
         <div className="pt-[8.5rem] flex flex-col gap-20 items-center justify-center pb-16">
-          <div className="flex flex-col items-center justify-center bg-dashboard w-[66%] h-[66vh] rounded-lg shadow-dashboard max-sm:w-[85%] max-sm:h-[30vh]">
+          <div className="flex flex-col items-center justify-center bg-dashboard w-[66%] h-[66vh] rounded-lg shadow-dashboard max-sm:w-[85%] max-sm:h-[30vh] p-6">
             <h2 className="text-2xl font-semibold mb-4">Статистика на плащанията</h2>
             <div className="w-[80%] h-[80%] flex items-center justify-center">
-              <Pie data={chartData} options={options} />
+              <Pie data={chartDataPaidVsUnpaid} options={options} />
             </div>
             <div className="mt-4 text-center">
-              <p className="text-lg">Общо платени: {totalPaid.toFixed(2)} лв.</p>
-              <p className="text-lg">Общо неплатени: {totalUnpaid.toFixed(2)} лв.</p>
+              <p className="text-lg font-medium">Общо платени: <span className="font-semibold">{totalPaid.toFixed(2)} лв.</span></p>
+              <p className="text-lg font-medium">Общо неплатени: <span className="font-semibold">{totalUnpaid.toFixed(2)} лв.</span></p>
+            </div>
+          </div>
+          <div className="flex flex-col items-center justify-center bg-dashboard w-[66%] h-[66vh] rounded-lg shadow-dashboard max-sm:w-[85%] max-sm:h-[30vh] p-6">
+            <h2 className="text-2xl font-semibold mb-4">Платени на клиенти и доставчици</h2>
+            <div className="w-[80%] h-[80%] flex items-center justify-center">
+              <Pie data={chartDataClientsVsSuppliers} options={options} />
+            </div>
+            <div className="mt-4 text-center">
+              <p className="text-lg font-medium">Общо платени на клиенти: <span className="font-semibold">{totalPaidToClients.toFixed(2)} лв.</span></p>
+              <p className="text-lg font-medium">Общо платени на доставчици: <span className="font-semibold">{totalPaidToSuppliers.toFixed(2)} лв.</span></p>
+              <p className="text-lg font-medium">Нетен баланс: <span className="font-semibold">{netBalance.toFixed(2)} лв.</span></p>
             </div>
           </div>
           <div className="flex flex-col items-center justify-center bg-dashboard w-[66%] h-fit rounded-lg shadow-dashboard max-sm:w-[85%] py-6">
