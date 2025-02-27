@@ -4,12 +4,12 @@ import React, { useEffect, useState } from 'react';
 import ProtectedRoute from '../components/ProtectedRoute';
 import Navbar from '../components/Navbar';
 import NavbarMobile from '../components/NavbarMobile';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { Pie } from 'react-chartjs-2';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js';
+import { Pie, Bar } from 'react-chartjs-2';
 import axios from 'axios';
 import Link from 'next/link';
 
-ChartJS.register(ArcElement, Tooltip, Legend);
+ChartJS.register(ArcElement, Tooltip, Legend, BarElement, CategoryScale, LinearScale);
 
 interface Invoice {
   id: number;
@@ -26,6 +26,7 @@ const Dashboard = () => {
   const [totalUnpaid, setTotalUnpaid] = useState(0);
   const [totalPaidToClients, setTotalPaidToClients] = useState(0);
   const [totalPaidToSuppliers, setTotalPaidToSuppliers] = useState(0);
+  const [monthlyPayments, setMonthlyPayments] = useState<{ month: string, clients: number, suppliers: number }[]>([]);
   const [recentInvoices, setRecentInvoices] = useState<Invoice[]>([]);
 
   useEffect(() => {
@@ -38,14 +39,21 @@ const Dashboard = () => {
         let unpaid = 0;
         let paidToClients = 0;
         let paidToSuppliers = 0;
+        const monthlyData: { [key: string]: { clients: number, suppliers: number } } = {};
         
         invoices.forEach((invoice: any) => {
           paid += Number(invoice.total_paid);
           unpaid += Number(invoice.remaining_amount);
+          const month = new Date(invoice.date).toLocaleString('default', { month: 'long' });
+          if (!monthlyData[month]) {
+            monthlyData[month] = { clients: 0, suppliers: 0 };
+          }
           if (invoice.party_type === 'client') {
             paidToClients += Number(invoice.total_paid);
+            monthlyData[month].clients += Number(invoice.total_paid);
           } else if (invoice.party_type === 'supplier') {
             paidToSuppliers += Number(invoice.total_paid);
+            monthlyData[month].suppliers += Number(invoice.total_paid);
           }
         });
 
@@ -58,6 +66,11 @@ const Dashboard = () => {
         setTotalUnpaid(unpaid);
         setTotalPaidToClients(paidToClients);
         setTotalPaidToSuppliers(paidToSuppliers);
+        setMonthlyPayments(Object.keys(monthlyData).map(month => ({
+          month,
+          clients: monthlyData[month].clients,
+          suppliers: monthlyData[month].suppliers
+        })).sort((a, b) => new Date(`1 ${a.month} 2021`).getTime() - new Date(`1 ${b.month} 2021`).getTime()));
         setRecentInvoices(sortedInvoices);
       } catch (error) {
         console.error('Error fetching invoice data:', error);
@@ -82,12 +95,20 @@ const Dashboard = () => {
   };
 
   const chartDataClientsVsSuppliers = {
-    labels: ['Платени на клиенти', 'Платени на доставчици'],
+    labels: monthlyPayments.map(data => data.month),
     datasets: [
       {
-        data: [totalPaidToClients, totalPaidToSuppliers],
-        backgroundColor: ['#4CAF50', '#FF5252'],
-        borderColor: ['#43A047', '#D32F2F'],
+        label: 'Платени на клиенти',
+        data: monthlyPayments.map(data => data.clients),
+        backgroundColor: '#4CAF50',
+        borderColor: '#43A047',
+        borderWidth: 1,
+      },
+      {
+        label: 'Платени на доставчици',
+        data: monthlyPayments.map(data => data.suppliers),
+        backgroundColor: '#FF5252',
+        borderColor: '#D32F2F',
         borderWidth: 1,
       },
     ],
@@ -128,9 +149,9 @@ const Dashboard = () => {
             </div>
           </div>
           <div className="flex flex-col items-center justify-center bg-dashboard w-[66%] h-[66vh] rounded-lg shadow-dashboard max-sm:w-[85%] max-sm:h-[30vh] p-6">
-            <h2 className="text-2xl font-semibold mb-4">Платени на клиенти и доставчици</h2>
+            <h2 className="text-2xl font-semibold mb-4">Платени на клиенти и доставчици по месеци</h2>
             <div className="w-[80%] h-[80%] flex items-center justify-center">
-              <Pie data={chartDataClientsVsSuppliers} options={options} />
+              <Bar data={chartDataClientsVsSuppliers} options={options} />
             </div>
             <div className="mt-4 text-center">
               <p className="text-lg font-medium">Общо платени на клиенти: <span className="font-semibold">{totalPaidToClients.toFixed(2)} лв.</span></p>
