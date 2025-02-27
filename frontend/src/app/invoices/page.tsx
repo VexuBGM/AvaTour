@@ -85,7 +85,7 @@ const Invoices = () => {
 
         {/* компютри */}
         <div className="w-[93%] flex flex-row flex-wrap gap-4 justify-start h-fit max-sm:hidden">
-          <div className="shadow-invoiceCustom bg-gradientdblue w-[18%] pt-4 rounded-lg flex flex-col justify-between items-center">
+          <div className="shadow-invoiceCustom bg-gradientdblue w-[18%] pt-[1.35%] rounded-lg flex flex-col justify-between items-center">
             <Link href="/create-invoice" className="flex justify-center items-center">
               <div className="bg-white hover:bg-slate-100 rounded-lg w-5/6 cursor-pointer">
                 <AddIcon />
@@ -143,7 +143,7 @@ const Invoices = () => {
 
         {/* мобилни устройства */}
         <div className="w-full hidden flex-col gap-4 max-sm:flex">
-          <div className="shadow-invoiceCustom bg-gradientdblue w-[70%] mx-auto pt-4 rounded-lg flex flex-col justify-between items-center">
+          <div className="shadow-invoiceCustom bg-gradientdblue w-[50%] mx-auto pt-[5%] rounded-lg flex flex-col justify-between items-center">
             <Link href="/create-invoice" className="flex justify-center items-center">
               <div className="bg-white hover:bg-slate-100 rounded-lg w-5/6 cursor-pointer">
                 <AddIcon />
