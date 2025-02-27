@@ -56,9 +56,14 @@ class ProfileDeleteView(APIView):
 class ProfileUpdateView(generics.UpdateAPIView):
     serializer_class = ProfileUpdateSerializer
     permission_classes = [IsAuthenticated]
+    http_method_names = ['patch', 'put']
 
     def get_object(self):
         return self.request.user
+
+    def perform_update(self, serializer):
+        user = serializer.save()
+        login(self.request, user)  # Re-authenticate the user after updating
 
 def csrf_token_view(request):
     return JsonResponse({'csrfToken': get_token(request)})

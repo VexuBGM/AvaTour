@@ -46,7 +46,12 @@ export default function ProfileSettings() {
 
   const handleSubmit = async () => {
     try {
-      const response = await axios.put('http://localhost:8000/api/accounts/update/', formData, {
+      const updatedData: Partial<typeof formData> = {};
+      if (formData.username) updatedData.username = formData.username;
+      if (formData.email) updatedData.email = formData.email;
+      if (formData.password) updatedData.password = formData.password;
+
+      const response = await axios.put('http://localhost:8000/api/accounts/update/', updatedData, {
         headers: {
           'X-CSRFToken': csrfToken,
         },
