@@ -1,18 +1,29 @@
 'use client';
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import '../globals.css';
 import Navbar from '../components/Navbar';
 import NavbarMobile from '../components/NavbarMobile';
 import OpenedEye from '../components/OpenedEye';
 import ClosedEye from '../components/ClosedEye';
 import EditIcon from '../components/EditIcon';
+import axios from 'axios';
 
 type EditableField = "username" | "email" | "password";
 
 export default function ProfileSettings() {
   const [showPassword, setShowPassword] = useState(false);
   const [editingField, setEditingField] = useState<EditableField | null>(null);
+  const [formData, setFormData] = useState({ username: "", email: "", password: "" });
+  const [csrfToken, setCsrfToken] = useState("");
+
+  useEffect(() => {
+    const fetchCsrfToken = async () => {
+      const response = await axios.get('http://localhost:8000/api/accounts/csrf-token/', { withCredentials: true });
+      setCsrfToken(response.data.csrfToken);
+    };
+    fetchCsrfToken();
+  }, []);
 
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
@@ -27,6 +38,24 @@ export default function ProfileSettings() {
 
   const handleBlur = () => {
     setEditingField(null);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async () => {
+    try {
+      const response = await axios.put('http://localhost:8000/api/accounts/update/', formData, {
+        headers: {
+          'X-CSRFToken': csrfToken,
+        },
+        withCredentials: true,
+      });
+      alert("Profile updated successfully!");
+    } catch (error) {
+      alert("Failed to update profile.");
+    }
   };
 
   return (
@@ -53,6 +82,8 @@ export default function ProfileSettings() {
               className={`bg-llblue rounded-t-md block w-full px-2 pt-2 pr-10 border-b-2 border-dblue text-base text-dblue placeholder:text-dblue placeholder:text-base outline-none ${editingField === "username" ? "focus:border-transparent focus:rounded-b-md focus:bg-white" : ""}`}
               readOnly={editingField !== "username"}
               onBlur={handleBlur}
+              onChange={handleChange}
+              value={formData.username}
             />
             <button
               className="absolute right-2 cursor-pointer w-6 h-6 flex items-center justify-center"
@@ -75,6 +106,8 @@ export default function ProfileSettings() {
               className={`bg-llblue rounded-t-md block w-full px-2 pt-2 pr-10 border-b-2 border-dblue text-base text-dblue placeholder:text-dblue placeholder:text-base outline-none ${editingField === "email" ? "focus:border-transparent focus:rounded-b-md focus:bg-white" : ""}`}
               readOnly={editingField !== "email"}
               onBlur={handleBlur}
+              onChange={handleChange}
+              value={formData.email}
             />
             <button
               className="absolute right-2 cursor-pointer w-6 h-6 flex items-center justify-center"
@@ -95,6 +128,8 @@ export default function ProfileSettings() {
               className={`bg-llblue rounded-t-md block w-full px-2 pt-2 pr-16 border-b-2 border-dblue text-base text-dblue placeholder:text-dblue placeholder:text-base outline-none ${editingField === "password" ? "focus:border-transparent focus:rounded-b-md focus:bg-white" : ""}`}
               readOnly={editingField !== "password"}
               onBlur={handleBlur}
+              onChange={handleChange}
+              value={formData.password}
             />
             <div className="absolute right-2 flex items-center gap-x-2">
               <button
@@ -113,20 +148,22 @@ export default function ProfileSettings() {
           </div>
 
           <div className="flex flex-col justify-center mt-[2rem] items-center gap-[1rem]">
-          <button
-            type="submit"
-            className="bg-lightyellow shadow-mobileBtnCustom hover:bg-slightlydarkeryellow w-[19rem] rounded-xl cursor-pointer text-dyellow text-center font-semibold text-xl px-5 py-2 select-none max-sm:w-[100%]"
-          >
-            Запазване на промените
-          </button>
+            <button
+              type="button"
+              className="bg-lightyellow shadow-mobileBtnCustom hover:bg-slightlydarkeryellow w-[19rem] rounded-xl cursor-pointer text-dyellow text-center font-semibold text-xl px-5 py-2 select-none max-sm:w-[100%]"
+              onClick={handleSubmit}
+            >
+              Запазване на промените
+            </button>
 
-          <button
-            type="submit"
-            className="bg-lightyellow shadow-mobileBtnCustom hover:bg-slightlydarkeryellow w-[20rem] rounded-xl cursor-pointer text-dyellow text-center font-semibold text-xl px-5 py-2 select-none max-sm:w-[100%]"
-          >
-            Отхвърляне на промените
-          </button>
-        </div>
+            <button
+              type="button"
+              className="bg-lightyellow shadow-mobileBtnCustom hover:bg-slightlydarkeryellow w-[20rem] rounded-xl cursor-pointer text-dyellow text-center font-semibold text-xl px-5 py-2 select-none max-sm:w-[100%]"
+              onClick={() => setFormData({ username: "", email: "", password: "" })}
+            >
+              Отхвърляне на промените
+            </button>
+          </div>
         </div>
       </div>
     </div>

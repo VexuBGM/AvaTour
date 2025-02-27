@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from rest_framework import generics, status
 from rest_framework.response import Response
-from .serializers import LoginSerializer, UserSerializer
+from .serializers import LoginSerializer, UserSerializer, ProfileUpdateSerializer
 from django.contrib.auth import logout
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
@@ -52,6 +52,13 @@ class ProfileDeleteView(APIView):
     def delete(self, request):
         request.user.delete()
         return Response({"detail": "User deleted."}, status=status.HTTP_200_OK)
+
+class ProfileUpdateView(generics.UpdateAPIView):
+    serializer_class = ProfileUpdateSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_object(self):
+        return self.request.user
 
 def csrf_token_view(request):
     return JsonResponse({'csrfToken': get_token(request)})
