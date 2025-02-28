@@ -12,11 +12,14 @@ class Invoice(models.Model):
 
     party_type = models.CharField(max_length=8, choices=PARTY_TYPE_CHOICES)
     party_name = models.CharField(max_length=255)
-    invoice_number = models.CharField(max_length=10, unique=True)
+    invoice_number = models.CharField(max_length=10)
     date = models.DateField()
     total_amount = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(Decimal('0.00'))])
     created_at = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='invoices', on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ('user', 'invoice_number')
 
     def get_total_payments(self):
         return sum(payment.amount for payment in self.payments.all())
