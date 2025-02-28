@@ -9,6 +9,7 @@ import MoreInNewTabIcon from '../components/MoreInNewTabIcon';
 import DeleteIcon from '../components/DeleteIcon';
 import SearchIcon from '../components/SearchIcon';
 import Link from 'next/link';
+import { fetchInvoices } from '../../services/page';
 import axios from 'axios';
 
 const Invoices = () => {
@@ -26,16 +27,16 @@ const Invoices = () => {
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
-    const fetchInvoices = async () => {
+    const fetchInvoicesData = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/invoices/');
-        setInvoices(response.data);
+        const data = await fetchInvoices();
+        setInvoices(data);
       } catch (error) {
         console.error('Error fetching invoices:', error);
       }
     };
 
-    fetchInvoices();
+    fetchInvoicesData();
   }, []);
 
   const filteredInvoices = invoices.filter(invoice =>

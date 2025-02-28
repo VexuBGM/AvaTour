@@ -2,6 +2,7 @@ from django.db import models
 from django.core.validators import MinValueValidator
 from decimal import Decimal
 from django.core.exceptions import ValidationError
+from django.conf import settings
 
 class Invoice(models.Model):
     PARTY_TYPE_CHOICES = [
@@ -15,6 +16,7 @@ class Invoice(models.Model):
     date = models.DateField()
     total_amount = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(Decimal('0.00'))])
     created_at = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='invoices', on_delete=models.CASCADE)
 
     def get_total_payments(self):
         return sum(payment.amount for payment in self.payments.all())

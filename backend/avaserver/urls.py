@@ -16,10 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from accounts.views import csrf_token_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
     path('api/accounts/', include('accounts.urls')),
-    path('api/invoices/', include('invoices.urls')), 
+    path('api/invoices/', include('invoices.urls')),
+    path('csrf-token/', csrf_token_view, name='csrf-token'),
 ]

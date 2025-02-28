@@ -18,12 +18,13 @@ class InvoiceSerializer(serializers.ModelSerializer):
     remaining_amount = serializers.DecimalField(max_digits=10, decimal_places=2, read_only=True)
     is_fully_paid = serializers.BooleanField(read_only=True)
     total_paid = serializers.DecimalField(max_digits=10, decimal_places=2, read_only=True)
+    user = serializers.ReadOnlyField(source='user.username')
 
     class Meta:
         model = Invoice
         fields = ['id', 'party_type', 'party_name', 'invoice_number', 
                  'date', 'total_amount', 'payments', 'remaining_amount',
-                 'is_fully_paid', 'total_paid', 'created_at']
+                 'is_fully_paid', 'total_paid', 'created_at', 'user']
 
     def to_representation(self, instance):
         data = super().to_representation(instance)
