@@ -1,9 +1,8 @@
-from django.contrib.auth import authenticate, login
-from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import get_user_model
 from rest_framework import generics, status
 from rest_framework.response import Response
 from .serializers import LoginSerializer, UserSerializer, ProfileUpdateSerializer
-from django.contrib.auth import logout
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.views import APIView
@@ -11,10 +10,11 @@ from rest_framework.permissions import IsAuthenticated
 from django.http import JsonResponse
 from django.middleware.csrf import get_token
 
+User = get_user_model()
+
 class UserCreateView(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-
 
 class SessionLoginView(generics.GenericAPIView):
     serializer_class = LoginSerializer
