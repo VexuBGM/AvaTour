@@ -57,7 +57,7 @@ const Invoices = () => {
   };
 
   return (
-    //<ProtectedRoute>
+    <ProtectedRoute>
     <div className="h-screen">
       <div className="block sm:hidden">
         <NavbarMobile />
@@ -203,7 +203,7 @@ const Invoices = () => {
         </div>
       </div>
     </div>
-    //</ProtectedRoute>
+    </ProtectedRoute>
   );
 };
 

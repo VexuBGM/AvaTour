@@ -120,7 +120,6 @@ const CreateInvoice = () => {
         setError(null);
     
         try {
-            // Remove 'лв.' and convert to number
             const totalAmount = parseFloat(amount.replace(' лв.', ''));
             const invoiceData = {
                 party_type: isSupplier ? 'supplier' as const : 'client' as const,
@@ -140,7 +139,6 @@ const CreateInvoice = () => {
                 });
             }
     
-            // Reset form
             setPartyName('');
             setAmount('');
             setNumber('');

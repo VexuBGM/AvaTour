@@ -63,7 +63,7 @@ class ProfileUpdateView(generics.UpdateAPIView):
 
     def perform_update(self, serializer):
         user = serializer.save()
-        login(self.request, user)  # Re-authenticate the user after updating
+        login(self.request, user) 
 
 def csrf_token_view(request):
     return JsonResponse({'csrfToken': get_token(request)})

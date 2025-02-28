@@ -29,7 +29,7 @@ export default function Login() {
         'http://localhost:8000/api/accounts/session_login/',
         formData,
         {
-          withCredentials: true, // Important to send/receive cookies
+          withCredentials: true,
         }
       );
       setMessage(response.data.detail);

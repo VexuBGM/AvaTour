@@ -73,7 +73,6 @@ export default function ProfileSettings() {
       });
       if (response.status === 200) {
         alert("Profile deleted successfully!");
-        // Redirect to login page or home page after deletion
         window.location.href = "/login";
       } else {
         alert("Failed to delete profile.");

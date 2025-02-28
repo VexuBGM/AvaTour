@@ -57,7 +57,6 @@ const Dashboard = () => {
           }
         });
 
-        // Sort invoices by date and get the last 3
         const sortedInvoices = [...invoices].sort((a, b) => 
           new Date(b.date).getTime() - new Date(a.date).getTime()
         ).slice(0, 3);
@@ -138,9 +137,9 @@ const Dashboard = () => {
         </div>
         
         <div className="pt-[8.5rem] flex flex-col gap-20 items-center justify-center pb-16">
-          <div className="flex flex-col items-center justify-center bg-dashboard w-[66%] h-[66vh] rounded-lg shadow-dashboard max-sm:w-[85%] max-sm:h-[30vh] p-6">
+          <div className="flex flex-col items-center justify-center bg-dashboard w-[66%] h-[66vh] rounded-lg shadow-dashboard max-sm:w-[85%] max-sm:h-[50vh] p-6">
             <h2 className="text-2xl font-semibold mb-4">Статистика на плащанията</h2>
-            <div className="w-[80%] h-[80%] flex items-center justify-center">
+            <div className="w-[80%] h-[80%] flex items-center justify-center max-sm:w-full max-sm:h-[50%]">
               <Pie data={chartDataPaidVsUnpaid} options={options} />
             </div>
             <div className="mt-4 text-center">
@@ -148,9 +147,9 @@ const Dashboard = () => {
               <p className="text-lg font-medium">Общо неплатени: <span className="font-semibold">{totalUnpaid.toFixed(2)} лв.</span></p>
             </div>
           </div>
-          <div className="flex flex-col items-center justify-center bg-dashboard w-[66%] h-[66vh] rounded-lg shadow-dashboard max-sm:w-[85%] max-sm:h-[30vh] p-6">
+          <div className="flex flex-col items-center justify-center bg-dashboard w-[66%] h-[66vh] rounded-lg shadow-dashboard max-sm:w-[85%] max-sm:h-[50vh] p-6">
             <h2 className="text-2xl font-semibold mb-4">Платени на клиенти и доставчици по месеци</h2>
-            <div className="w-[80%] h-[80%] flex items-center justify-center">
+            <div className="w-[80%] h-[80%] flex items-center justify-center max-sm:w-full max-sm:h-[50%]">
               <Bar data={chartDataClientsVsSuppliers} options={options} />
             </div>
             <div className="mt-4 text-center">

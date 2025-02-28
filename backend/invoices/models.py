@@ -37,7 +37,7 @@ class Payment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def clean(self):
-        if not self.pk:  # Only for new payments
+        if not self.pk: 
             total_paid = self.invoice.get_total_payments()
             if total_paid + self.amount > self.invoice.total_amount:
                 raise ValidationError('Total payments cannot exceed invoice amount')

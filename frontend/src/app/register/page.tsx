@@ -35,7 +35,6 @@ export default function Register() {
     try {
       const response = await axios.post('http://localhost:8000/api/accounts/register/', formData);
       setSuccessMessage('Registration successful!');
-      // Perform login immediately after registration
       const loginResponse = await axios.post(
         'http://localhost:8000/api/accounts/session_login/',
         { username: formData.username, password: formData.password },
