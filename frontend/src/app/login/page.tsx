@@ -33,9 +33,11 @@ export default function Login() {
           withCredentials: true,
         }
       );
-      setMessage(response.data.detail);
       if (response.status === 200) {
+        setMessage('Login successful!');
         router.push('/dashboard');
+      } else {
+        setMessage(response.data.detail || 'An error occurred.');
       }
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
