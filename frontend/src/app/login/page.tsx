@@ -1,7 +1,7 @@
 "use client";
 
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import '../globals.css';
 import OpenedEye from '../components/OpenedEye';
@@ -35,6 +35,7 @@ export default function Login() {
       );
       if (response.status === 200) {
         setMessage('Login successful!');
+        localStorage.setItem('isAuthenticated', 'true');
         router.push('/dashboard');
       } else {
         setMessage(response.data.detail || 'An error occurred.');
