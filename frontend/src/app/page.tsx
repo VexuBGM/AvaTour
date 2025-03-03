@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import '../app/globals.css';
 import Link from 'next/link';
+import Image from 'next/image';
 import ArrowIcon from './components/ArrowIcon';
 import TopArrowIcon from './components/TopArrowIcon';
 
@@ -49,8 +50,8 @@ export default function Home() {
       <title>AvaTour</title>
 
       <div className="h-full">
-        <img className="w-planet max-sm:hidden" src="/images/landing-page-planet.png" draggable="false" />
-        <img className="w-chart absolute bottom-0 right-0 max-sm:w-full max-sm:fixed" src="/images/landing-page-chart.png" draggable="false" />
+        <Image className="w-planet max-sm:hidden" src="/images/landing-page-planet.png" alt="Landing Page Planet" width={500} height={500} draggable="false" />
+        <Image className="w-chart absolute bottom-0 right-0 max-sm:w-full max-sm:fixed" src="/images/landing-page-chart.png" alt="Landing Page Chart" width={500} height={500} draggable="false" />
       </div>
 
       <div className="z-20 top-[1%] w-full absolute max-sm:top-[2%] max-sm:flex max-sm:justify-center max-sm:items-center">
@@ -91,7 +92,7 @@ export default function Home() {
       <div id="description" className="flex justify-center items-center h-screen">
         <div className="bg-gradient-to-b from-gradientdblue to-gradientlblue w-2/5 h-2/3 rounded-2xl max-sm:w-[85%] max-sm:h-[50%] max-sm:mt-[-50%]">
           <h1 className="mt-7 text-center text-ddblue text-5xl font-extrabold">Какво е AvaTour?</h1>
-          <h1 className="mt-10 text-center text-descblue text-2xl font-extrabold">description</h1>
+          <h1 className="mt-10 text-center text-descblue text-2xl font-extrabold">AvaTour е система за текущо и извънсчетоводно управление на финансовите потоци. Тя предоставя възможност за по-добър контрол, оптимизация на ресурсите и минимизиране на финансовите рискове.</h1>
         </div>
       </div>
 

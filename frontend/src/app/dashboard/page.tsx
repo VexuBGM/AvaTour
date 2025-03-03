@@ -8,6 +8,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend, BarElement, CategoryScal
 import { Pie, Bar } from 'react-chartjs-2';
 import axios from 'axios';
 import Link from 'next/link';
+import { api } from '@/config/config';
 
 ChartJS.register(ArcElement, Tooltip, Legend, BarElement, CategoryScale, LinearScale);
 
@@ -19,6 +20,8 @@ interface Invoice {
   total_amount: number;
   date: string;
   is_fully_paid: boolean;
+  total_paid: number;
+  remaining_amount: number;
 }
 
 const Dashboard = () => {
@@ -32,8 +35,8 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchInvoiceData = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/invoices/');
-        const invoices = response.data;
+        const response = await axios.get(`${api}/api/invoices/`);
+        const invoices: Invoice[] = response.data;
         
         let paid = 0;
         let unpaid = 0;
@@ -41,7 +44,7 @@ const Dashboard = () => {
         let paidToSuppliers = 0;
         const monthlyData: { [key: string]: { clients: number, suppliers: number } } = {};
         
-        invoices.forEach((invoice: any) => {
+        invoices.forEach((invoice) => {
           paid += Number(invoice.total_paid);
           unpaid += Number(invoice.remaining_amount);
           const month = new Date(invoice.date).toLocaleString('default', { month: 'long' });

@@ -8,6 +8,7 @@ import OpenedEye from '../components/OpenedEye';
 import ClosedEye from '../components/ClosedEye';
 import EditIcon from '../components/EditIcon';
 import axios from 'axios';
+import { api } from "@/config/config";
 
 type EditableField = "username" | "email" | "password";
 
@@ -19,7 +20,7 @@ export default function ProfileSettings() {
 
   useEffect(() => {
     const fetchCsrfToken = async () => {
-      const response = await axios.get('http://localhost:8000/api/accounts/csrf-token/', { withCredentials: true });
+      const response = await axios.get(`${api}/accounts/csrf-token/`, { withCredentials: true });
       setCsrfToken(response.data.csrfToken);
     };
     fetchCsrfToken();
@@ -51,21 +52,21 @@ export default function ProfileSettings() {
       if (formData.email) updatedData.email = formData.email;
       if (formData.password) updatedData.password = formData.password;
 
-      const response = await axios.put('http://localhost:8000/api/accounts/update/', updatedData, {
+      await axios.put(`${api}/accounts/update/`, updatedData, {
         headers: {
           'X-CSRFToken': csrfToken,
         },
         withCredentials: true,
       });
       alert("Profile updated successfully!");
-    } catch (error) {
+    } catch {
       alert("Failed to update profile.");
     }
   };
 
   const handleDelete = async () => {
     try {
-      const response = await axios.delete('http://localhost:8000/api/accounts/delete/', {
+      const response = await axios.delete(`${api}/accounts/delete/`, {
         headers: {
           'X-CSRFToken': csrfToken,
         },
@@ -77,7 +78,7 @@ export default function ProfileSettings() {
       } else {
         alert("Failed to delete profile.");
       }
-    } catch (error) {
+    } catch {
       alert("Failed to delete profile.");
     }
   };

@@ -7,6 +7,7 @@ import '../globals.css';
 import OpenedEye from '../components/OpenedEye';
 import ClosedEye from '../components/ClosedEye';
 import CloseBtn from '../components/CloseBtn';
+import { api } from '@/config/config';
 
 export default function Login() {
   const [formData, setFormData] = useState({ username: '', password: '' });
@@ -26,7 +27,7 @@ export default function Login() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        'http://localhost:8000/api/accounts/session_login/',
+        `${api}/accounts/session_login/`,
         formData,
         {
           withCredentials: true,
@@ -36,8 +37,12 @@ export default function Login() {
       if (response.status === 200) {
         router.push('/dashboard');
       }
-    } catch (error: any) {
-      setMessage(error.response?.data?.detail || 'An error occurred.');
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        setMessage(error.response?.data?.detail || 'An error occurred.');
+      } else {
+        setMessage('An error occurred.');
+      }
     }
   };
 

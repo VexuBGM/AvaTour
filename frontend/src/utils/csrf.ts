@@ -1,5 +1,7 @@
+import { api } from "@/config/config";
+
 export async function getCsrfToken(): Promise<string> {
-  const response = await fetch("http://localhost:8000/api/csrf/", {
+  const response = await fetch(`${api}/csrf/`, {
     credentials: "include", 
   });
 

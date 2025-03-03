@@ -1,11 +1,12 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useParams } from 'next/navigation';
 import axios from 'axios';
 import Navbar from '../../components/Navbar';
 import NavbarMobile from '../../components/NavbarMobile';
 import DeleteIcon from '../../components/DeleteIcon';
+import { api } from '@/config/config';
 
 interface Payment {
   id: number;
@@ -33,31 +34,35 @@ export default function InvoiceDetails() {
   const [newPayment, setNewPayment] = useState({ amount: '', payment_date: '' });
   const [error, setError] = useState('');
 
-  useEffect(() => {
-    fetchInvoice();
-  }, []);
-
-  const fetchInvoice = async () => {
+  const fetchInvoice = useCallback(async () => {
     try {
-      const response = await axios.get(`http://localhost:8000/api/invoices/${params.id}/`);
+      const response = await axios.get(`${api}/invoices/${params.id}/`);
       setInvoice(response.data);
     } catch (error) {
       console.error('Error fetching invoice:', error);
     }
-  };
+  }, [params.id]);
+
+  useEffect(() => {
+    fetchInvoice();
+  }, [fetchInvoice]);
 
   const handleAddPayment = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       await axios.post(
-        `http://localhost:8000/api/invoices/${params.id}/add_payment/`,
+        `${api}/invoices/${params.id}/add_payment/`,
         newPayment
       );
       setNewPayment({ amount: '', payment_date: '' });
-      fetchInvoice(); // Refresh invoice data
+      fetchInvoice(); 
       setError('');
-    } catch (error: any) {
-      setError(error.response?.data?.error || 'Error adding payment');
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        setError(error.response?.data?.error || 'Error adding payment');
+      } else {
+        setError('Error adding payment');
+      }
     }
   };
 
@@ -65,9 +70,9 @@ export default function InvoiceDetails() {
     if (window.confirm('Are you sure you want to delete this payment?')) {
       try {
         await axios.delete(
-          `http://localhost:8000/api/invoices/${params.id}/payments/${paymentId}/`
+          `${api}/invoices/${params.id}/payments/${paymentId}/`
         );
-        fetchInvoice(); // Refresh invoice data
+        fetchInvoice(); 
       } catch (error) {
         console.error('Error deleting payment:', error);
       }

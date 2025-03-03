@@ -26,7 +26,7 @@ const CreateInvoice = () => {
     const [error, setError] = useState<string | null>(null);
 
     const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        let value = e.target.value;
+        const value = e.target.value;
     
         if (value.startsWith('.')) {
             return;
@@ -62,7 +62,7 @@ const CreateInvoice = () => {
     };
 
     const handleAdditionalAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        let value = e.target.value;
+        const value = e.target.value;
         if (value.startsWith('.')) {
             return;
         }

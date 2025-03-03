@@ -3,20 +3,20 @@ import Link from 'next/link';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import ProfileIcon from './ProfileIcon';
+import { api } from '@/config/config';
+import Image from 'next/image';
 
 const Navbar: React.FC = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [username, setUsername] = useState('');
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/accounts/check_auth/', {
+        await axios.get(`${api}/accounts/check_auth/`, {
           withCredentials: true,
         });
-        setUsername(response.data.username);
       } catch (error) {
         console.error('Error fetching user data:', error);
       }
@@ -33,7 +33,7 @@ const Navbar: React.FC = () => {
     try {
       const csrfToken = getCookie('csrftoken');
       await axios.post(
-        'http://localhost:8000/api/accounts/session_logout/',
+        `${api}/accounts/session_logout/`,
         {},
         {
           withCredentials: true,
@@ -67,7 +67,7 @@ const Navbar: React.FC = () => {
     <>
       <nav className="z-50 w-full fixed flex justify-between items-center p-4 bg-lblue shadow-tcustom">
         <div className="w-12 flex items-center">
-          <img className="select-none" src="/images/logo.png" draggable="false" />
+          <Image className="select-none" src="/images/logo.png" alt="AvaTour Logo" width={48} height={48} draggable="false" />
           <h1 className="mt-2 ml-2 text-lg font-semibold text-logodblue select-none">AvaTour</h1>
         </div>
         <div className="flex-1 flex justify-center gap-10">

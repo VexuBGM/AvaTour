@@ -3,21 +3,21 @@ import Link from 'next/link';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import ProfileIcon from './ProfileIcon';
+import { api } from '@/config/config';
+import Image from 'next/image';
 
 const NavbarMobile: React.FC = () => {
   const [isClicked, setIsClicked] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [username, setUsername] = useState('');
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/accounts/check_auth/', {
+        await axios.get(`${api}/accounts/check_auth/`, {
           withCredentials: true,
         });
-        setUsername(response.data.username);
       } catch (error) {
         console.error('Error fetching user data:', error);
       }
@@ -34,7 +34,7 @@ const NavbarMobile: React.FC = () => {
     try {
       const csrfToken = getCookie('csrftoken');
       await axios.post(
-        'http://localhost:8000/api/accounts/session_logout/',
+        `${api}/accounts/session_logout/`,
         {},
         {
           withCredentials: true,
@@ -68,7 +68,7 @@ const NavbarMobile: React.FC = () => {
     <>
       <nav className="z-50 fixed w-full flex justify-between items-center p-4 bg-lblue shadow-tcustom">
         <div className="w-12 flex items-center">
-          <img className="select-none" src="/images/logo.png" draggable="false" />
+          <Image className="select-none" src="/images/logo.png" alt="AvaTour Logo" width={48} height={48} draggable="false" />
           <h1 className="mt-2 ml-2 text-lg font-semibold text-logodblue select-none">AvaTour</h1>
         </div>
         <div
@@ -85,7 +85,7 @@ const NavbarMobile: React.FC = () => {
         <div className={`fixed top-0 left-0 w-full h-full bg-lblue z-10 transform transition-all duration-300 ${isClicked ? 'translate-x-0' : 'translate-x-full'}`}>
           <div className="relative w-12 flex items-center mt-3 float-right right-[23%]">
             <h1 className="mt-2 mr-2 text-lg font-semibold text-logodblue select-none">AvaTour</h1>
-            <img className="select-none" src="/images/logo.png" draggable="false" />
+            <Image className="select-none" src="/images/logo.png" alt="AvaTour Logo" width={48} height={48} draggable="false" />
           </div>
 
           <div className="flex flex-col items-center justify-center mt-[19%] w-full">

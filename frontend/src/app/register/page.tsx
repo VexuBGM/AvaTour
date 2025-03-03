@@ -7,6 +7,7 @@ import '../globals.css';
 import OpenedEye from '../components/OpenedEye';
 import ClosedEye from '../components/ClosedEye';
 import CloseBtn from '../components/CloseBtn';
+import { api } from '@/config/config';
 
 export default function Register() {
   const router = useRouter();
@@ -15,7 +16,6 @@ export default function Register() {
     email: '',
     password: '',
   });
-  const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
@@ -33,16 +33,15 @@ export default function Register() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8000/api/accounts/register/', formData);
-      setSuccessMessage('Registration successful!');
+      await axios.post(`${api}/accounts/register/`, formData);
       const loginResponse = await axios.post(
-        'http://localhost:8000/api/accounts/session_login/',
+        `${api}/accounts/session_login/`,
         { username: formData.username, password: formData.password },
         { withCredentials: true }
       );
       console.log(loginResponse.data);
       router.push('/dashboard');
-    } catch (error) {
+    } catch {
       setErrorMessage('Registration failed.');
     }
   };

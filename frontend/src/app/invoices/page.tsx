@@ -11,6 +11,7 @@ import SearchIcon from '../components/SearchIcon';
 import Link from 'next/link';
 import { fetchInvoices } from '../../services/page';
 import axios from 'axios';
+import { api } from '@/config/config';
 
 const Invoices = () => {
   interface Invoice {
@@ -45,7 +46,7 @@ const Invoices = () => {
 
   const handleDelete = async (id: number) => {
     try {
-      await axios.delete(`http://localhost:8000/api/invoices/${id}/`);
+      await axios.delete(`${api}/invoices/${id}/`);
       setInvoices(invoices.filter(invoice => invoice.id !== id));
     } catch (error) {
       console.error('Error deleting invoice:', error);
