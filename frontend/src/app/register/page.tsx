@@ -33,7 +33,7 @@ export default function Register() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await axios.post(`http://167.172.160.212:8000/api/accounts/register/`, formData);
+      await axios.post(`${api}/accounts/register/`, formData);
       const loginResponse = await axios.post(
         `${api}/accounts/session_login/`,
         { username: formData.username, password: formData.password },
