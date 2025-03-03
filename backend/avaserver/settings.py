@@ -123,4 +123,6 @@ SESSION_COOKIE_AGE = 86400 # 1 day
 CORS_ALLOW_METHODS = ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
 CORS_ALLOW_HEADERS = ["Content-Type", "Authorization"]
 
+SECURE_SSL_REDIRECT = False
+
 AUTH_USER_MODEL = 'accounts.CustomUser'
