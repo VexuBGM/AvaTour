@@ -98,11 +98,13 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-    "https://avatour-alpha.vercel.app",
-    "https://02b9-167-172-160-212.ngrok-free.app",
-]
+CORS_ALLOW_ALL_ORIGINS = True
+
+# CORS_ALLOWED_ORIGINS = [
+#     "http://localhost:3000",
+#     "https://avatour-alpha.vercel.app",
+#     "https://02b9-167-172-160-212.ngrok-free.app",
+# ]
 
 CORS_ALLOW_CREDENTIALS = True
 
@@ -110,6 +112,7 @@ CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",
     "https://avatour-alpha.vercel.app",
     "https://02b9-167-172-160-212.ngrok-free.app",
+    "http://*"
 ]
 
 REST_FRAMEWORK = {
