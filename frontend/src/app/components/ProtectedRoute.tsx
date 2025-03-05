@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import { ReactNode } from 'react';
 import { api } from '@/config/config';
+axios.defaults.withCredentials = true;
 
 const ProtectedRoute = ({ children }: { children: ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
@@ -13,7 +14,7 @@ const ProtectedRoute = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const response = await axios.get(`${api}/accounts/check_auth/`, { withCredentials: true });
+        const response = await axios.post(`${api}/accounts/check_auth/`);
         console.log(response);
         if (response.status === 200 && response.data.isAuthenticated) {
           setIsAuthenticated(true);
