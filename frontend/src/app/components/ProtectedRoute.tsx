@@ -14,24 +14,19 @@ const ProtectedRoute = ({ children }: { children: ReactNode }) => {
     const checkAuth = async () => {
       try {
         const response = await axios.get(`${api}/accounts/check_auth/`, { withCredentials: true });
-        console.log('Auth check response:', response);
+        console.log(response);
         if (response.status === 200 && response.data.isAuthenticated) {
           setIsAuthenticated(true);
         } else {
           setIsAuthenticated(false);
         }
       } catch (error) {
-        if (axios.isAxiosError(error)) {
-          console.error('Axios error:', error.message);
-        } else {
-          console.error('Unexpected error:', error);
-        }
         setIsAuthenticated(false);
       }
     };
 
     checkAuth();
-  }, [router]);
+  }, []);
 
   useEffect(() => {
     if (isAuthenticated === false) {
@@ -41,10 +36,6 @@ const ProtectedRoute = ({ children }: { children: ReactNode }) => {
 
   if (isAuthenticated === null) {
     return <div>Loading...</div>;
-  }
-
-  if (!isAuthenticated) {
-    return null; // or a redirect to login page
   }
 
   return <>{children}</>;

@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
 import axios from 'axios';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import '../globals.css';
 import OpenedEye from '../components/OpenedEye';
@@ -54,7 +54,9 @@ export default function Login() {
       <div className="w-2/5 bg-lblue p-10 rounded-xl shadow-registerLoginCustom max-sm:w-[87%] max-sm:mt-[-20%] max-sm:p-6">
         <form onSubmit={handleSubmit} className="space-y-4 w-full">
           <div>
-            <label className="block text-ddblue font-bold text-2xl mb-1"><h1 className="cursor-text w-fit">Потребителско име</h1></label>
+            <label className="block text-ddblue font-bold text-2xl mb-1">
+              <h1 className="cursor-text w-fit">Потребителско име</h1>
+            </label>
             <input
               name="username"
               placeholder="Въведете Вашето потребителско име"
@@ -66,16 +68,18 @@ export default function Login() {
           </div>
 
           <div>
-          <label className="block text-ddblue font-bold text-2xl mb-1"><h1 className="cursor-text w-fit">Парола</h1></label>
-          <div className="relative flex items-center">
-            <input
-              name="password"
-              type={showPassword ? "text" : "password"}
-              placeholder="Въведете Вашата парола"
-              value={formData.password}
-              onChange={handleChange}
-              className="bg-llblue rounded-t-md rounded-b-md block w-full px-2 pt-2 pr-10 border-b-2 focus:border-dblue focus:rounded-b-sm border-transparent focus:outline-none shadow-sm text-base text-dblue placeholder:text-dblue placeholder:text-base"
-            />
+            <label className="block text-ddblue font-bold text-2xl mb-1">
+              <h1 className="cursor-text w-fit">Парола</h1>
+            </label>
+            <div className="relative flex items-center">
+              <input
+                name="password"
+                type={showPassword ? "text" : "password"}
+                placeholder="Въведете Вашата парола"
+                value={formData.password}
+                onChange={handleChange}
+                className="bg-llblue rounded-t-md rounded-b-md block w-full px-2 pt-2 pr-10 border-b-2 focus:border-dblue focus:rounded-b-sm border-transparent focus:outline-none shadow-sm text-base text-dblue placeholder:text-dblue placeholder:text-base"
+              />
               <div
                 className="absolute right-3 cursor-pointer w-6 h-6 flex items-center justify-center"
                 onClick={handleTogglePassword}
