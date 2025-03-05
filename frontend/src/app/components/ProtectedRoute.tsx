@@ -21,7 +21,7 @@ const ProtectedRoute = ({ children }: { children: ReactNode }) => {
         } else {
           setIsAuthenticated(false);
         }
-      } catch (error) {
+      } catch {
         setIsAuthenticated(false);
       }
     };
