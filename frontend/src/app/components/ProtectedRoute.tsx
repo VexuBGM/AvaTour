@@ -19,17 +19,25 @@ const ProtectedRoute = ({ children }: { children: ReactNode }) => {
           setIsAuthenticated(true);
         } else {
           setIsAuthenticated(false);
-          router.push('/login');
         }
       } catch (error) {
-        console.error('Auth check failed:', error);
+        if (axios.isAxiosError(error)) {
+          console.error('Axios error:', error.message);
+        } else {
+          console.error('Unexpected error:', error);
+        }
         setIsAuthenticated(false);
-        router.push('/login');
       }
     };
 
     checkAuth();
   }, [router]);
+
+  useEffect(() => {
+    if (isAuthenticated === false) {
+      router.push('/login');
+    }
+  }, [isAuthenticated, router]);
 
   if (isAuthenticated === null) {
     return <div>Loading...</div>;
