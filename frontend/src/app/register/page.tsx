@@ -42,7 +42,7 @@ export default function Register() {
       console.log(loginResponse.data);
       router.push('/dashboard');
     } catch {
-      setErrorMessage('Registration failed.');
+      setErrorMessage('Регистрацията бе неуспешна!');
     }
   };
 
