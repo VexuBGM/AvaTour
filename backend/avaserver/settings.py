@@ -101,7 +101,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "https://avatour-alpha.vercel.app",
-    "*",
+    "https://02b9-167-172-160-212.ngrok-free.app",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
@@ -109,7 +109,7 @@ CORS_ALLOW_CREDENTIALS = True
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",
     "https://avatour-alpha.vercel.app",
-    "*",
+    "https://02b9-167-172-160-212.ngrok-free.app",
 ]
 
 REST_FRAMEWORK = {
@@ -119,7 +119,7 @@ REST_FRAMEWORK = {
 }
 
 SESSION_COOKIE_SAMESITE = None
-SESSION_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = False
 SESSION_COOKIE_AGE = 86400 # 1 day
 
 CORS_ALLOW_METHODS = ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
