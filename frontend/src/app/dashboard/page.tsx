@@ -35,7 +35,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchInvoiceData = async () => {
       try {
-        const response = await axios.get(`${api}/api/invoices/`);
+        const response = await axios.get(`${api}/invoices/`);
         const invoices: Invoice[] = response.data;
         
         let paid = 0;

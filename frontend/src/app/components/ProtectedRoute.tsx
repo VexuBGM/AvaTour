@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import { ReactNode } from 'react';
 import { api } from '@/config/config';
+
 axios.defaults.withCredentials = true;
 
 const ProtectedRoute = ({ children }: { children: ReactNode }) => {

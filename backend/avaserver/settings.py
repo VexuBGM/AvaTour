@@ -103,6 +103,7 @@ CORS_ALLOWED_ORIGINS = [
     "https://avatour-alpha.vercel.app",
     "https://avatour.website",
     "https://www.avatour.website",
+    "https://api.avatour.website",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
@@ -112,6 +113,7 @@ CSRF_TRUSTED_ORIGINS = [
     "https://avatour-alpha.vercel.app",
     "https://avatour.website",
     "https://www.avatour.website",
+    "https://api.avatour.website",
 ]
 
 REST_FRAMEWORK = {
