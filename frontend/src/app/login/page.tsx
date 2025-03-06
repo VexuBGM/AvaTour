@@ -8,6 +8,7 @@ import OpenedEye from '../components/OpenedEye';
 import ClosedEye from '../components/ClosedEye';
 import CloseBtn from '../components/CloseBtn';
 import { api } from '@/config/config';
+import { getCookie } from '@/utils/axios';
 
 export default function Login() {
   const [formData, setFormData] = useState({ username: '', password: '' });
@@ -31,6 +32,9 @@ export default function Login() {
         formData,
         {
           withCredentials: true,
+          headers: {
+            'X-CSRFToken': getCookie('csrftoken'),
+          }
         }
       );
       if (response.status === 200) {
@@ -59,7 +63,7 @@ export default function Login() {
             </label>
             <input
               name="username"
-              placeholder="Въведете Вашето потребителско име"
+              placeholder="Въведете Вашето потребителско име ТЕСТ"
               autoComplete="off"
               value={formData.username}
               onChange={handleChange}
