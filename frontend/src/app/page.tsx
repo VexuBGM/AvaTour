@@ -57,7 +57,7 @@ export default function Home() {
       <div className="z-20 top-[1%] w-full absolute max-sm:top-[2%] max-sm:flex max-sm:justify-center max-sm:items-center">
         <div className="w-2/3 relative left-[30%] max-sm:left-0 max-sm:w-full max-sm:flex max-sm:flex-col max-sm:justify-center max-sm:items-center">
           <h1 className="text-dblue text-center text-9xl font-extrabold max-sm:text-[5.5rem]">AvaTour</h1>
-          <h1 className="text-dyellow text-center text-3xl font-medium mt-2 max-sm:mt-0 max-sm:leading-[1.5rem] max-sm:text-[1.3rem] max-sm:w-[80%]">
+          <h1 className="mt-4 mb-8 text-center text-descblue text-2xl font-extrabold w-[95%]">
             Вашият фокус е туризмът, нашият – отчетността!
           </h1>
         </div>

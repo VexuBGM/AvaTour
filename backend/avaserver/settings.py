@@ -12,7 +12,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 DEBUG = True
 
-ALLOWED_HOSTS = ["167.172.160.212", "02b9-167-172-160-212.ngrok-free.app", "localhost"]
+ALLOWED_HOSTS = ["167.172.160.212", "02b9-167-172-160-212.ngrok-free.app", "localhost", "api.avatour.website"]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
