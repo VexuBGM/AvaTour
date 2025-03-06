@@ -90,9 +90,9 @@ export default function Home() {
       </div>
 
       <div id="description" className="flex justify-center items-center h-screen">
-        <div className="bg-gradient-to-b from-gradientdblue to-gradientlblue w-2/5 h-2/3 rounded-2xl max-sm:w-[85%] max-sm:h-[50%] max-sm:mt-[-50%]">
+        <div className="flex flex-col justify-center items-center bg-gradient-to-b from-gradientdblue to-gradientlblue w-2/5 h-fit rounded-2xl max-sm:w-[85%] max-sm:mt-[-50%]">
           <h1 className="mt-7 text-center text-ddblue text-5xl font-extrabold">Какво е AvaTour?</h1>
-          <h1 className="mt-10 text-center text-descblue text-2xl font-extrabold">AvaTour е система за текущо и извънсчетоводно управление на финансовите потоци. Тя предоставя възможност за по-добър контрол, оптимизация на ресурсите и минимизиране на финансовите рискове.</h1>
+          <h1 className="mt-4 mb-8 text-center text-descblue text-2xl font-extrabold w-[95%]">AvaTour е система за текущо и извънсчетоводно управление на финансовите потоци. Тя предоставя възможност за по-добър контрол, оптимизация на ресурсите и минимизиране на финансовите рискове.</h1>
         </div>
       </div>
 

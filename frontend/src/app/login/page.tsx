@@ -34,17 +34,17 @@ export default function Login() {
         }
       );
       if (response.status === 200) {
-        setMessage('Login successful!');
+        setMessage('Входът бе успешен!');
         localStorage.setItem('isAuthenticated', 'true');
         router.push('/dashboard');
       } else {
-        setMessage(response.data.detail || 'An error occurred.');
+        setMessage(response.data.detail || 'Стана грешка!');
       }
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
-        setMessage(error.response?.data?.detail || 'An error occurred.');
+        setMessage(error.response?.data?.detail || 'Стана грешка!');
       } else {
-        setMessage('An error occurred.');
+        setMessage('Стана грешка!');
       }
     }
   };
